@@ -1,12 +1,13 @@
 <script>
     export let scrollUp;
     export let scrollDown;
+    export let allowNext;
 </script>
 
 <div class="slide">
     {#if scrollUp}
         <div>
-            <button class="prev" on:click={scrollUp}>Back</button>
+            <button class="prev" on:click={scrollUp}>&#60 Back</button>
         </div>
     {/if}
     <div class="slide-content">
@@ -14,7 +15,7 @@
     </div>
     {#if scrollDown}
         <div class="next-container">
-            <button class="next" on:click={scrollDown}>Next</button>
+            <button disabled={!allowNext} class="next" on:click={scrollDown}>Next</button>
         </div>
     {/if}
 </div>
@@ -33,7 +34,7 @@
         text-align: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
     }
 
@@ -41,20 +42,27 @@
         border: none;
         background: none;
         color: #a8181c;
-        text-decoration: underline;
         margin-left: 7vh;
+        font-size: 18pt;
+        font-family: "Delicious Handrawn";
     }
 
     .next {
-        background-color: #a8181c;
-        color: white;
+        background: none;
+        color: #a8181c;
         margin-right: 7vh;
-        padding: 2vh 3vh;
         border: none;
         border-radius: 1vh;
+        font-family: "Delicious Handrawn";
+        font-size: 36pt;
+        text-decoration: underline;
     }
 
     .next:hover {
+        cursor:pointer
+    }
+
+    .prev:hover {
         cursor:pointer
     }
 
