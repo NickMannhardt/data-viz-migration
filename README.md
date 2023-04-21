@@ -3,13 +3,20 @@ Zoe DeSimone, Natasha Hirt, Niklas Mannhardt
 
 
 ## Getting Started
-Do the following
+After pulling from main, run
 ```
-cd dataviz
+cd frontend
 npm install
 ```
 
-Then to start the development server run
+Then to start the development server for the backend run
 ```
-npm run dev -- --open
+cd server/src
+python app.py
+```
+
+to start the development server for the frontend run
+```
+cd frontend
+npm run dev --open
 ```
