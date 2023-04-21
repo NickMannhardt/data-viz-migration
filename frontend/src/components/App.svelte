@@ -5,6 +5,7 @@
     import Title from '../slides/Title.svelte'
     import Profile from '../slides/Profile.svelte'
     import Dashboard1 from '../slides/Dashboard1.svelte'
+    import Filters from '../slides/Filters.svelte'
 
     // Current page being viewed
     var page_index = 0
@@ -102,6 +103,13 @@
         />
     {/if}
     {#if (page_index >= 2 || animation_active) && transition_conditions[2]}
+        <Filters
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+        />
+    {/if}
+    {#if (page_index >= 3 || animation_active) && transition_conditions[2]}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}

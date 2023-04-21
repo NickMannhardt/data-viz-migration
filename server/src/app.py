@@ -36,6 +36,23 @@ def get_tipo_familia(country):
     print(df.to_json())
     return json.loads(df.to_json(orient='records', index=True))
 
+
+@app.route('/avg_income_amount/<country>', methods=['GET'])
+def get_avg_income_amount(country):
+    df = pd.read_csv(data_dir)
+    columns = [
+        'country',
+        'avg_income_amount'
+    ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['avg_income_amount'])\
+        .count()\
+        .rename({'country': 'count'}, axis=1)\
+        .reset_index()
+    print(df.to_json())
+    return json.loads(df.to_json(orient='records', index=True))
+
 if __name__ == '__main__':
     app.run(
         debug=True,
