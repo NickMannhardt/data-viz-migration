@@ -7,8 +7,8 @@
 
     let div;
 
-    let chartWidth = 500;
-    let chartHeight = 350;
+    let chartWidth = 1000;
+    let chartHeight = 360;
 
     onMount( () => {
         chartWidth = div.clientWidth;
@@ -21,10 +21,10 @@
             .attr("height", d => {
                 console.log('hi')
                 console.log(d)
-                return yScale(d.size) * 2
+                return chartHeight - paddings.bottom - yScale(d.size)
             })
             .attr("y", d => {
-                return chartHeight-paddings.bottom - yScale(d.size)*2
+                return yScale(d.size)
             })
     })
 
@@ -33,7 +33,7 @@
         left: 50,
         right: 50,
         bottom: 50,
-        gap: 25,
+        gap: 5,
     };
 
     $: xScale = scaleLinear()
