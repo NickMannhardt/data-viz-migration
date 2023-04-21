@@ -8,6 +8,11 @@ After pulling from main, run
 cd frontend
 npm install
 ```
+and
+```
+cd server/src
+pip install -r requirements.txt
+```
 
 Then to start the development server for the backend run
 ```
