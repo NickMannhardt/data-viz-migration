@@ -1,7 +1,7 @@
 <script>
-    export let scrollUp;
-    export let scrollDown;
-    export let allowNext;
+    export let scrollUp = null;
+    export let scrollDown = null;
+    export let allowNext = null;
 </script>
 
 <div class="slide">

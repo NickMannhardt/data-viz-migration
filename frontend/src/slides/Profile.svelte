@@ -1,10 +1,12 @@
 <script>
+    import { onMount } from 'svelte';
     import Slide from '../components/Slide.svelte'
 
     export let scrollUp;
     export let scrollDown;
     export let name;
     export let gender;
+    export let country;
 
     let ages = [...Array(20).keys()]
 
@@ -30,6 +32,8 @@
     }
 
     chooseAvatar(gender);
+
+
 
 </script>
 
@@ -74,6 +78,17 @@
                     >
                         <option>Woman</option>
                         <option>Man</option>
+                    </select>
+                    <br>
+                    in
+                    <select 
+                        class="profile-select" 
+                        style="color:#a8181c;"
+                        bind:value={country}
+                    >
+                        <option>El Salvador</option>
+                        <option>Guatemala</option>
+                        <option>Honduras</option>
                     </select>
                 </div>
             </div>

@@ -2,17 +2,21 @@
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
 
+
+    import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
+    export let country;
 
     // let data = new Map();
-    let data = [{label: 1, count: 123},{label: 2, count: 144},{label: 3, count: 74}];
-    data = data.map(d => {
-        return {
-            index: d['label'],
-            size: d['count'],
-        }
-    })
+    // let data = [{label: 1, count: 123},{label: 2, count: 144},{label: 3, count: 74}];
+    let data = [];
+    // data = data.map(d => {
+    //     return {
+    //         index: d['label'],
+    //         size: d['count'],
+    //     }
+    // })
 
     let chartWidth = 600;
     let chartHeight = 350;
@@ -26,7 +30,24 @@
         bottom: 50,
     }
 
-
+    let countryCode = {
+        'El Salvador': 'SLV',
+        'Honduras': 'HND',
+        'Guatemala': 'GT'
+    }
+    
+    onMount( () => {
+        fetch(`http://localhost:8080/tipo_familia/${countryCode[country]}`)
+            .then(res => res.json())
+            .then(res => {
+                data = res.map(d => {
+                    return {
+                        index: d['tipo_familia'],
+                        size: d['count']
+                    }
+                })
+            })
+    })
 </script>
 
 <Slide
@@ -40,14 +61,16 @@
         <br>
         <br>
         <div class='barchart'>
-            <Bar bind:data={data}/>
+            {#if data.length > 0}
+                <Bar bind:data={data}/>
+            {/if}
         </div>
     </div>
 </Slide>
 
 <style>
     .barchart {
-        width: 50vh;
+        width: 90vh;
     }
 
     .flex-center {

@@ -1,8 +1,7 @@
 <script>
-    // TODO
     import { onMount } from 'svelte'
 
-    import Slide from './Slide.svelte'
+    import Slide from '../components/Slide.svelte'
     import Title from '../slides/Title.svelte'
     import Profile from '../slides/Profile.svelte'
     import Dashboard1 from '../slides/Dashboard1.svelte'
@@ -22,14 +21,15 @@
         })
 
         function scrollPageDown() {
-            // only scroll to windowHeight stopping points
-            // let target = Math.floor((window.pageYOffset + window.innerHeight) / window.innerHeight) * window.innerHeight
-            page_index += 1
-            let target = window.innerHeight * page_index
-            window.scrollTo({
-                top: target,
-                behavior: 'smooth',
-            });
+            if (transition_conditions[page_index + 1]) {
+                page_index += 1
+
+                let target = window.innerHeight * page_index
+                window.scrollTo({
+                    top: target,
+                    behavior: 'smooth',
+                });
+            }
         }
         
         function scrollPageUp() {
@@ -54,10 +54,15 @@
         });
 
         document.addEventListener('keydown', e => {
-            if (e.keyCode === 39) {
+            if (e.target === document.body) {
+                if (e.keyCode === 39) {
+                    scrollPageDown();
+                } else if (e.keyCode === 37) {
+                    scrollPageUp();
+                }
+            }
+            if (e.keyCode == 13) {
                 scrollPageDown();
-            } else if (e.keyCode === 37) {
-                scrollPageUp();
             }
         });
 
@@ -72,37 +77,38 @@
     });
 
     // user choices
-    let name = "";
+    $: name = "";
     let gender = "Woman";
     let age = 10;
+    let country = "El Salvador";
+
+    $: transition_conditions = {
+        0: true,
+        1: true,
+        2: name.length > 0
+    }
 
 </script>
 
 <main>
     <Title/>
     {#if page_index >= 1 || animation_active}
-    <Profile
-        scrollUp={scrollUp}
-        scrollDown={scrollDown}
-        bind:name={name}
-        bind:gender={gender}
-    />
+        <Profile
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            bind:name={name}
+            bind:gender={gender}
+            bind:country={country}
+        />
     {/if}
-    {#if ((page_index >= 2 || animation_active) && name.length > 0)}
-    <Dashboard1
-        scrollUp={scrollUp}
-        scrollDown={scrollDown}
-    />
+    {#if (page_index >= 2 || animation_active) && transition_conditions[2]}
+        <Dashboard1
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+        />
     {/if}
-    {#if page_index >= 3 || animation_active}
-    <Slide
-        scrollUp={scrollUp}
-        scrollDown={scrollDown}
-    >
-        <p>Page 1</p>
-    </Slide>
-    {/if}
-    <Slide></Slide>  <!-- This should remain hidden -->
+    <Slide></Slide>  <!-- This buffer slide should remain hidden -->
 </main>
 
 <style>
