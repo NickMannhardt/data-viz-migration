@@ -5,6 +5,7 @@
 
     export let data = [];
 
+
     let div;
 
     let chartWidth = 1000;

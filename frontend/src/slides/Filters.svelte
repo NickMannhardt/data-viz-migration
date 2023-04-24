@@ -7,8 +7,14 @@
     export let scrollUp;
     export let scrollDown;
     export let country;
+    export let name;
+    export let gender;
+    export let age;
+    export let income;
 
     let data = [];
+    let n_household = [1,2,3,4,5,6,7,8,9,10]
+    let incomes = Array.from({ length: 21 }, (_, i) => i * 0.5);
 
 
     let chartWidth = 600;
@@ -29,6 +35,8 @@
         'Guatemala': 'GT'
     }
 
+    let rural = "rural";
+
     onMount( () => {
         fetch(`http://localhost:8080/avg_income_amount/${countryCode[country]}`)
             .then(res => res.json())
@@ -41,24 +49,55 @@
                 })
             })
     })
+
+    
 </script>
 
 <Slide
     scrollUp={scrollUp}
     scrollDown={scrollDown}
+    allowNext = True
 >
     <div class='flex-center'>
+        
         <div class='text-container'>
             Filters Text.
         </div>
-        <br>
-        <br>
+        <div class='input-container'>
+        Hello, {name}.
+        You are a {age} year old {gender} from {country}.
+
+        You live in a
+        <select 
+            class="input-select" 
+            style="color:#a8181c;"
+            bind:value={rural}
+        >
+            <option>rural</option>
+            <option>urban</option>
+        </select>
+        area.
+        You live in a 
+        <select class="profile-select" style="color:#f66d0e;">
+            {#each n_household  as number}
+                <option>{number}</option>
+            {/each}
+        </select>
+        person household. Your family earns about 
+        <select class="profile-select" style="color:#f66d0e;">
+            {#each incomes  as income}
+                <option>{income}</option>
+            {/each}
+        </select>
+        thousand dollars.
+        </div>
         <div class='barchart'>
             {#if data.length > 0}
                 <Bar bind:data={data}/>
             {/if}
         </div>
     </div>
+    
 </Slide>
 
 <style>
@@ -77,6 +116,26 @@
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
+    }
+    .input-select {
+        background-color: #1f1f1f;
+        border: none;
+        color: white;
+        font-family: 'Delicious Handrawn';
+        font-size: 24pt;
+    }
+    .input-select{
+        cursor: pointer;
+    }
+    .input-container {
+        font-size: 24pt;
+    }
+    .profile-select {
+        background-color: #1f1f1f;
+        border: none;
+        color: white;
+        font-family: 'Delicious Handrawn';
+        font-size: 24pt;
     }
     
 </style>

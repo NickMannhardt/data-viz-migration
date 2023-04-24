@@ -82,11 +82,14 @@
     let gender = "Woman";
     let age = 10;
     let country = "El Salvador";
+    let rural = "rural"
+    let income = 3
 
     $: transition_conditions = {
         0: true,
         1: true,
-        2: name.length > 0
+        2: name.length > 0,
+        3: true
     }
 
 </script>
@@ -107,9 +110,14 @@
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+            bind:rural={rural}
+            bind:income = {income}
         />
     {/if}
-    {#if (page_index >= 3 || animation_active) && transition_conditions[2]}
+    {#if (page_index >= 3 || animation_active) && transition_conditions[3]}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
