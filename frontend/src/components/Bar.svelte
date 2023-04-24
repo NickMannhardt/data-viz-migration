@@ -4,6 +4,8 @@
     import { onMount } from "svelte";
 
     export let data = [];
+    export let xTitle = "";
+    export let yTitle = "";
 
 
     let div;
@@ -31,9 +33,9 @@
 
     const paddings = {
         top: 50,
-        left: 50,
+        left: 150,
         right: 50,
-        bottom: 50,
+        bottom: 100,
         gap: 5,
     };
 
@@ -138,7 +140,7 @@
 
 </script>
 
-<div bind:this={div} class="visualization"> 
+<div bind:this={div} class="visualization">
     {#if data.length > 1}
         <svg 
             width={chartWidth}
@@ -165,53 +167,39 @@
                         </text>
                     </g>
                 {/each}
+                <text
+                    x={chartWidth/2}
+                    y={chartHeight - paddings.bottom/2}
+                    text-anchor="middle"
+                    font-size="16"
+                    fill="#FFFFFF"
+                >
+                    {xTitle}
+                </text>
+                <text
+                    transform={`translate(-${paddings.left/2},${chartHeight/2})rotate(-90)`}
+                    text-anchor="middle"
+                    font-size="16"
+                    fill="#FFFFFF"
+                >
+                    {yTitle}
+                </text>
             </g>
             <g>
                 {#each data as d, i}
                     <rect
                         x={xScale(data[i].index) + paddings.gap}
-                        y={chartHeight - paddings.bottom}
-                        width={(chartWidth - paddings.left - paddings.right) / (data.length) - 2 * paddings.gap}
-                        height=0
-                        fill="#AAAAAA"
+                        y={chartHeight - paddings.bottom - yScale(d.size)}
+                        height={yScale(d.size)}
+                        width={(chartWidth - paddings.left - paddings.right) / data.length - paddings.gap}
+                        fill="#FFFFFF"
                         class="bar"
                     />
                 {/each}
             </g>
-            <g>
-                <line
-                    x1={paddings.left}
-                    x2={chartWidth - paddings.right}
-                    y1={chartHeight - paddings.bottom}
-                    y2={chartHeight - paddings.bottom}
-                    stroke="#FFFFFF"
-                    stroke-width="2"
-                    class="axis"
-                />
-            </g>
-            <g transform="translate(0, {chartHeight - paddings.bottom})">
-                {#each xTicks as x}
-                    <g
-                        class="tick"
-                        opacity="1"
-                        transform="translate({xScale(x)},0)"
-                    >
-                        <line stroke="#6e3003" y2="6" />
-                        <text 
-                            dy="0.71em" 
-                            fill="#6e3003" 
-                            y="10" 
-                            x="-5"
-                            text-anchor="middle"
-                        >
-                            {x}
-                        </text>
-                    </g>
-                {/each}
-            </g>
         </svg>
     {:else}
-        <p>Add some data to see a visualization!</p>
+        <p>No data to display</p>
     {/if}
 </div>
 

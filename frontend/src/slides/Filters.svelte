@@ -12,6 +12,7 @@
     export let age;
     export let income;
 
+
     let data = [];
     let n_household = [1,2,3,4,5,6,7,8,9,10]
     let incomes = Array.from({ length: 21 }, (_, i) => i * 0.5);
@@ -50,6 +51,8 @@
             })
     })
 
+    let xTitle= "Income";
+    let yTitle = "Count";
     
 </script>
 
@@ -93,7 +96,7 @@
         </div>
         <div class='barchart'>
             {#if data.length > 0}
-                <Bar bind:data={data}/>
+                <Bar bind:data={data} bind:xTitle={xTitle} bind:yTitle={yTitle}/>
             {/if}
         </div>
     </div>
