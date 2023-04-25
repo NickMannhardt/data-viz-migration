@@ -48,6 +48,11 @@
                 })
             })
     })
+
+    let xTitle= "Family Type";
+    let yTitle = "Count";
+
+
 </script>
 
 <Slide
@@ -62,7 +67,7 @@
         <br>
         <div class='barchart'>
             {#if data.length > 0}
-                <Bar bind:data={data}/>
+                <Bar bind:data={data} bind:xTitle={xTitle} bind:yTitle={yTitle}/>
             {/if}
         </div>
     </div>

@@ -8,7 +8,7 @@
     export let gender;
     export let country;
 
-    let ages = [...Array(20).keys()]
+    let ages = [...Array(70).keys()]
 
     let female_avatars = [
         'src/images/avatar_2.png',
