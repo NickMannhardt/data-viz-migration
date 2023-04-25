@@ -67,7 +67,24 @@ def get_mean_income_amount(country):
         .rename({'country': 'count'}, axis=1)\
         .reset_index()
     df2 = df['avg_income_amount'].mean()
-    return jsonify({'result':float(df2)})
+    return jsonify({'result':int(df2)})
+
+@app.route('/debt_amount/<country>', methods=['GET'])
+def get_debt_amount(country):
+    df = pd.read_csv(data_dir)
+    columns = [
+        'country',
+        'debt_amount'
+    ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['debt_amount'])\
+        .count()\
+        .rename({'country': 'count'}, axis=1)\
+        .reset_index()
+    df2 = df['debt_amount'].mean()
+    return jsonify({'result':int(df2)})
+
 
 
 if __name__ == '__main__':

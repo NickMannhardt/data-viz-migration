@@ -17,6 +17,7 @@
     let n_household = [1,2,3,4,5,6,7,8,9,10]
     let incomes = Array.from({ length: 21 }, (_, i) => i * 0.5);
     let avg_income = 500;
+    let debt_amount = 0;
 
 
     let chartWidth = 600;
@@ -69,6 +70,14 @@
                 avg_income = res.result
             })
     })
+
+    onMount( () => {
+        fetch(`http://localhost:8080/debt_amount/${countryCode[country]}`)
+            .then(res => res.json())
+            .then(res => {
+                debt_amount = res.result
+            })
+    })
     
 </script>
 
@@ -81,7 +90,7 @@
         
         <div class='text-container'>
             Filters Text.
-        </div>
+        
         <div class='input-container'>
         Hello, {name}.
         You are a {age} year old {gender} from {country}.
@@ -103,6 +112,8 @@
             {/each}
         </select>
         person household. Your family earns about {avg_income} {currency[countryCode[country]]}.
+        You have and average debt of {debt_amount} {currency[countryCode[country]]}.
+        You are predominantly concerned with
 
         <select class="profile-select" style="color:#f66d0e;">
             {#each incomes  as income}
@@ -117,6 +128,7 @@
             {/if}
         </div>
     </div>
+</div>
     
 </Slide>
 
