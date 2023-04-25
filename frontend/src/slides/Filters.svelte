@@ -18,6 +18,7 @@
     let incomes = Array.from({ length: 21 }, (_, i) => i * 0.5);
     let avg_income = 500;
     let debt_amount = 0;
+    let preocupaciones = 10
 
 
     let chartWidth = 600;
@@ -42,6 +43,30 @@
         'SLV': 'Dollars',
         'HND': 'Lempiras', 
         'GT': 'Quetzals'
+    }
+
+    let preocupaciones_first = {
+        1: 'Fear of contagion of COVID-19',
+        2: 'Limitations or restrictions on mobility due to COVID-19',
+        3: 'Can\'t afford to buy food',
+        4: 'Lack of work / unemployment',
+        5: 'Insecurity / violence',
+        6: 'Difficulty paying the rent or loan',
+        7:'Interruption or irregularity in educational services',
+        8:'Interruption of medical services',
+        9:'Medicines shortage',
+        10:'Public transport shortage',
+        11:'Lack of water',
+        12:'Persecution / discrimination',
+        13:'Fear of facing a natural threat (hurricanes, volcanic eruptions, plagues, etc.)',
+        14:'Other',
+        15: 'Without worries'
+
+    }
+
+    let genderCode = {
+        'Woman': 1,
+        'Man': 2
     }
 
     let rural = "rural";
@@ -78,6 +103,14 @@
                 debt_amount = res.result
             })
     })
+
+    onMount( () => {
+        fetch(`http://localhost:8080/debt_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                preocupaciones = res.result
+            })
+    })
     
 </script>
 
@@ -89,38 +122,39 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            Filters Text.
+            Hello, <span class='data'>{name}</span>.
         
-        <div class='input-container'>
-        Hello, {name}.
-        You are a {age} year old {gender} from {country}.
+            <div class='input-container'>
+            You are a <span class='data'>{age}</span> year old 
+            <span class='data'>{gender}</span> from <span class='data'>{country}</span>.
 
-        You live in a
-        <select 
-            class="input-select" 
-            style="color:#a8181c;"
-            bind:value={rural}
-        >
-            <option>rural</option>
-            <option>urban</option>
-        </select>
-        area.
-        You live in a 
-        <select class="profile-select" style="color:#f66d0e;">
-            {#each n_household  as number}
-                <option>{number}</option>
-            {/each}
-        </select>
-        person household. Your family earns about {avg_income} {currency[countryCode[country]]}.
-        You have and average debt of {debt_amount} {currency[countryCode[country]]}.
-        You are predominantly concerned with
+            You live in a
+            <select 
+                class="input-select" 
+                style="color:#a8181c;"
+                bind:value={rural}
+            >
+                <option>rural</option>
+                <option>urban</option>
+            </select>
+            area.
+            You live in a 
+            <select class="profile-select" style="color:#f66d0e;">
+                {#each n_household  as number}
+                    <option>{number}</option>
+                {/each}
+            </select>
+            person household. Your family earns about <span class='data'>{avg_income} {currency[countryCode[country]]}</span>.
+            You have and average debt of <span class='data'>{debt_amount} {currency[countryCode[country]]}</span>.
+            You are predominantly concerned with <span class='data'>{preocupaciones_first[preocupaciones]}</span>
 
-        <select class="profile-select" style="color:#f66d0e;">
-            {#each incomes  as income}
-                <option>{income}</option>
-            {/each}
-        </select>
-        
+            <select class="profile-select" style="color:#f66d0e;">
+                {#each incomes  as income}
+                    <option>{income}</option>
+                {/each}
+            </select>
+            
+            </div>
         </div>
         <div class='barchart'>
             {#if data.length > 0}
@@ -128,7 +162,7 @@
             {/if}
         </div>
     </div>
-</div>
+
     
 </Slide>
 
@@ -166,6 +200,12 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
+        font-family: 'Delicious Handrawn';
+        font-size: 24pt;
+    }
+
+    .data{
+        color: #31a693;
         font-family: 'Delicious Handrawn';
         font-size: 24pt;
     }
