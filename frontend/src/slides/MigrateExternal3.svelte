@@ -1,6 +1,6 @@
 <script>
     import Slide from '../components/Slide.svelte';
-    
+    import Bar from '../components/Bar.svelte';
 
     import { onMount } from 'svelte';
     export let scrollUp;
@@ -9,9 +9,10 @@
     export let name;
     export let gender;
     export let age;
-    export let income;
+    export let acompany;
+    export let household_income;
 
- 
+    
     
 </script>
 
@@ -23,7 +24,8 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            Migration Internal
+            Migration External 3
+            Your household earns
         </div>
 
             

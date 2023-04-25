@@ -7,8 +7,10 @@
     import Dashboard1 from '../slides/Dashboard1.svelte'
     import PersonaInfo1 from '../slides/PersonaInfo1.svelte'
     import PersonaInfo2 from '../slides/PersonaInfo2.svelte'
-    import MigrateExternal from '../slides/MigrateExternal.svelte'
-    import MigrateInternal from '../slides/MigrateInternal.svelte'
+    import MigrateExternal1 from '../slides/MigrateExternal1.svelte'
+    import NoMigration from '../slides/NoMigration.svelte'
+    import MigrateExternal2 from '../slides/MigrateExternal2.svelte'
+    import MigrateExternal3 from '../slides/MigrateExternal3.svelte'
 
     // Current page being viewed
     var page_index = 0
@@ -95,7 +97,8 @@
         2: name.length > 0,
         3: true,
         4: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        5: true
+        5: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
+        6: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")}
     }
 
     console.log(transition_conditions)
@@ -140,7 +143,7 @@
         />
     {/if}
     {#if (page_index >= 4 || animation_active) && transition_conditions[4].external}
-        <MigrateExternal
+        <MigrateExternal1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
@@ -152,7 +155,7 @@
         />
     {/if}
     {#if (page_index >= 4 || animation_active) && transition_conditions[4].internal}
-        <MigrateInternal
+        <NoMigration
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
@@ -161,11 +164,34 @@
             gender = {gender}
             
             
+        /> 
+    {/if}
+    {#if (page_index >= 5 || animation_active) && transition_conditions[5].external}
+        <MigrateExternal2
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
         />
     {/if}
 
 
-    {#if (page_index >= 5 || animation_active) && transition_conditions[5]}
+    {#if (page_index >= 5 || animation_active) && transition_conditions[5].internal}
+        <Dashboard1
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+        />
+    {/if}
+    {#if (page_index >= 6 || animation_active) && transition_conditions[6].external}
+        <MigrateExternal3
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+        />
+    {/if}
+
+
+    {#if (page_index >= 6 || animation_active) && transition_conditions[6].internal}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
