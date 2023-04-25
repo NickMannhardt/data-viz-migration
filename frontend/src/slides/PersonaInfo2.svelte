@@ -9,6 +9,7 @@
     export let name;
     export let gender;
     export let age;
+    export let migrationDecision;
     
 
     let data = [];
@@ -40,7 +41,6 @@
         'Man': 2
     }
 
-    let migrationDecision = "yes";
 
     
     onMount( () => {

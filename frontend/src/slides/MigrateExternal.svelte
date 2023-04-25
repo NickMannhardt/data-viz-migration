@@ -30,30 +30,6 @@
         'I don\'t wish to respond':99
     }
 
-    let mig_ext_country = {
-        'United States of America': 1,
-        'Canada':2,
-        'Australia':3,
-        'Spain':4,
-        'Italy':5,
-        'Mexico':6,
-        'Guatemala':7,
-        'Costa Rica':8,
-        'Honduras':9,
-        'The Savior':10,
-        'Nicaragua':11,
-        'Belize':12,
-        'France':13,
-        'Panama':14,
-        'Colombia':15,
-        'Ecuador':16,
-        'Peru':17,
-        'UK':18,
-        'UK':19,
-        'Brazil':20,
-        'Other':21,
-        'I don\'t wish to respond':99
-    }
 
     
 </script>
@@ -67,36 +43,7 @@
         
         <div class='text-container'>
             You've chosen to migrate! Now you'll need to make some preparations.
-            It is a long road from <span class='data'>{country}</span> to the 
-            <select 
-                class="input-select" 
-                style="color:#a8181c;"
-                bind:value={destCountry}
-            >
-                <option>United States of America</option>
-                <option>Canada</option>
-                <option>Australia</option>
-                <option>Spain</option>
-                <option>Italy</option>
-                <option>Mexico</option>
-                <option>Guatemala</option>
-                <option>Costa Rica</option>
-                <option>Honduras</option>
-                <option>The Savior</option>
-                <option>Nicaragua</option>
-                <option>Belize</option>
-                <option>France</option>
-                <option>Panama</option>
-                <option>Colombia</option>
-                <option>Ecuador</option>
-                <option>Peru</option>
-                <option>UK</option>
-                <option>Brazil</option>
-                <option>Other</option>
-                <option>I don't wish to respond</option>
-                <option></option>
-                
-            </select> 
+            It is a long road from <span class='data'>{country}</span> to the USA.
 
             You are planning to finance your migration using. Even as you prepare, one of 
             the most consequential questions of your journey is weighing on you:
