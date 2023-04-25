@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -52,6 +52,23 @@ def get_avg_income_amount(country):
         .reset_index()
     print(df.to_json())
     return json.loads(df.to_json(orient='records', index=True))
+
+@app.route('/mean_income_amount/<country>', methods=['GET'])
+def get_mean_income_amount(country):
+    df = pd.read_csv(data_dir)
+    columns = [
+        'country',
+        'avg_income_amount'
+    ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['avg_income_amount'])\
+        .count()\
+        .rename({'country': 'count'}, axis=1)\
+        .reset_index()
+    df2 = df['avg_income_amount'].mean()
+    return jsonify({'result':float(df2)})
+
 
 if __name__ == '__main__':
     app.run(

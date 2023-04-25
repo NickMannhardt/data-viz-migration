@@ -16,6 +16,7 @@
     let data = [];
     let n_household = [1,2,3,4,5,6,7,8,9,10]
     let incomes = Array.from({ length: 21 }, (_, i) => i * 0.5);
+    let avg_income = 500;
 
 
     let chartWidth = 600;
@@ -36,6 +37,12 @@
         'Guatemala': 'GT'
     }
 
+    let currency = {
+        'SLV': 'Dollars',
+        'HND': 'Lempiras', 
+        'GT': 'Quetzals'
+    }
+
     let rural = "rural";
 
     onMount( () => {
@@ -53,6 +60,15 @@
 
     let xTitle= "Income";
     let yTitle = "Count";
+
+    
+    onMount( () => {
+        fetch(`http://localhost:8080/mean_income_amount/${countryCode[country]}`)
+            .then(res => res.json())
+            .then(res => {
+                avg_income = res.result
+            })
+    })
     
 </script>
 
@@ -86,13 +102,14 @@
                 <option>{number}</option>
             {/each}
         </select>
-        person household. Your family earns about 
+        person household. Your family earns about {avg_income} {currency[countryCode[country]]}.
+
         <select class="profile-select" style="color:#f66d0e;">
             {#each incomes  as income}
                 <option>{income}</option>
             {/each}
         </select>
-        thousand dollars.
+        
         </div>
         <div class='barchart'>
             {#if data.length > 0}
