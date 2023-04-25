@@ -7,6 +7,7 @@
     import Dashboard1 from '../slides/Dashboard1.svelte'
     import PersonaInfo1 from '../slides/PersonaInfo1.svelte'
     import PersonaInfo2 from '../slides/PersonaInfo2.svelte'
+    import MigrateExternal from '../slides/MigrateExternal.svelte'
 
     // Current page being viewed
     var page_index = 0
@@ -92,7 +93,8 @@
         1: true,
         2: name.length > 0,
         3: true,
-        4: true
+        4: true,
+        5: true
     }
 
 </script>
@@ -132,8 +134,20 @@
             
         />
     {/if}
-
     {#if (page_index >= 4 || animation_active) && transition_conditions[4]}
+        <MigrateExternal
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+            bind:migrationDecision = {migrationDecision}
+            
+        />
+    {/if}
+
+    {#if (page_index >= 5 || animation_active) && transition_conditions[5]}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
