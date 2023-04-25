@@ -5,7 +5,8 @@
     import Title from '../slides/Title.svelte'
     import Profile from '../slides/Profile.svelte'
     import Dashboard1 from '../slides/Dashboard1.svelte'
-    import Filters from '../slides/Filters.svelte'
+    import PersonaInfo1 from '../slides/PersonaInfo1.svelte'
+    import PersonaInfo2 from '../slides/PersonaInfo2.svelte'
 
     // Current page being viewed
     var page_index = 0
@@ -83,13 +84,15 @@
     let age = 10;
     let country = "El Salvador";
     let rural = "rural"
+    let migrationDecision = "yes"
     let income = 3
 
     $: transition_conditions = {
         0: true,
         1: true,
         2: name.length > 0,
-        3: true
+        3: true,
+        4: true
     }
 
 </script>
@@ -106,7 +109,7 @@
         />
     {/if}
     {#if (page_index >= 2 || animation_active) && transition_conditions[2]}
-        <Filters
+        <PersonaInfo1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
@@ -118,6 +121,19 @@
         />
     {/if}
     {#if (page_index >= 3 || animation_active) && transition_conditions[3]}
+        <PersonaInfo2
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+            bind:migrationDecision = {migrationDecision}
+            
+        />
+    {/if}
+
+    {#if (page_index >= 4 || animation_active) && transition_conditions[4]}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}

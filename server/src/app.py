@@ -33,7 +33,6 @@ def get_tipo_familia(country):
         .count()\
         .rename({'country': 'count'}, axis=1)\
         .reset_index()
-    print(df.to_json())
     return json.loads(df.to_json(orient='records', index=True))
 
 
@@ -50,7 +49,6 @@ def get_avg_income_amount(country):
         .count()\
         .rename({'country': 'count'}, axis=1)\
         .reset_index()
-    print(df.to_json())
     return json.loads(df.to_json(orient='records', index=True))
 
 @app.route('/mean_income_amount/<country>', methods=['GET'])
@@ -86,12 +84,12 @@ def get_debt_amount(country):
     return jsonify({'result':int(df2)})
 
 
-@app.route('/preocupaciones_first/<country><rsp_age><rsp_sex>', methods=['GET'])
-def get_preocupaciones_first(country, rsp_age,rsp_sex):
+@app.route('/preocupaciones_first/<country>/<rsp_sex>', methods=['GET'])
+def get_preocupaciones_first(country,rsp_sex):
     df = pd.read_csv(data_dir)
-
+    print(f"rsp_sex:{rsp_sex}")
     # apply the age and gender filter to calculate the highest preocupaciones_first
-    df = df[(df['rsp_age'] == rsp_age) & (df['rsp_sex'] == rsp_sex)]
+    df = df[ (df['rsp_sex'] == int(rsp_sex))] #(df['rsp_age'] == 10) this is too narrow
 
     columns = [
             'country',
@@ -107,6 +105,34 @@ def get_preocupaciones_first(country, rsp_age,rsp_sex):
     index = df['count'].idxmax()
     highest_preocc = df['preocupaciones_first'][index ]
     return jsonify({'result':str(highest_preocc)})
+
+@app.route('/remesa_amount/<country>/<rsp_age>/<rsp_sex>', methods=['GET'])
+def get_remesa_amount(country, rsp_age,rsp_sex):
+    # apply the age and gender filter to calculate the mean remesa for that demographic
+    df = pd.read_csv(data_dir)
+    df = df[(df['rsp_age'] >= int(rsp_age) - 10) & (df['rsp_age'] <= int(rsp_age) + 10) & (df['rsp_sex'] == int(rsp_sex))]
+
+    columns = [
+            'country',
+            'remesa_amount'
+        ]
+    df = df[columns]
+    df = df[df['country'] == country]
+
+    remesa = df['remesa_amount'].mean()
+
+    r = df['remesa_amount'].mean()
+    remesa = (str(r))
+
+    if remesa== "nan":
+            remesa = "0"
+    else :
+            r = int(r)
+            remesa = (str(r))
+
+    print(f"remesa amount, slide 2:{remesa}")
+
+    return jsonify({'result':str(remesa)})
 
 
 

@@ -2,7 +2,6 @@
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
 
-
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
@@ -105,7 +104,7 @@
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/debt_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+        fetch(`http://localhost:8080/preocupaciones_first/${countryCode[country]}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 preocupaciones = res.result
@@ -146,13 +145,7 @@
             </select>
             person household. Your family earns about <span class='data'>{avg_income} {currency[countryCode[country]]}</span>.
             You have and average debt of <span class='data'>{debt_amount} {currency[countryCode[country]]}</span>.
-            You are predominantly concerned with <span class='data'>{preocupaciones_first[preocupaciones]}</span>
-
-            <select class="profile-select" style="color:#f66d0e;">
-                {#each incomes  as income}
-                    <option>{income}</option>
-                {/each}
-            </select>
+            You are predominantly concerned with <span class='data'>{preocupaciones_first[preocupaciones]}</span>.
             
             </div>
         </div>
