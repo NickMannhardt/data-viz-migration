@@ -23,7 +23,7 @@
         'GT': 'Quetzals'
     }
 
-    let amounts = Array.from({ length: 50 }, (_, i) => (i+1) * 1);
+    let amounts = Array.from({ length: 50 }, (_, i) => (i+1) * 1)
     
     
 </script>
@@ -35,7 +35,7 @@
 >
     <div class='flex-center'>
         
-        <div class='text-container'>
+        <div class='text-container' >
             Migration External 3
             Your household earns <span class='data'>{avg_income} {currency[countryCode[country]]}</span>
             per month, and is in <span class='data'>{debt_amount} {currency[countryCode[country]]}</span> debt.
@@ -46,19 +46,18 @@
         </div>
         <br>
         <div class='text-container'>
-            How much are you willing to spend on migrating?
+            How much are you willing to spend on migrating? 
         </div>
         <br>
         <div class='text-container'>
-            <select class="profile-select" style="color:#f66d0e;">
-                bind:value={amountSpent}
+            <select class="profile-select" style="color:#f66d0e;" bind:value={amountSpent}>
                 {#each amounts  as amountSpent}
                     <option>{amountSpent}</option>
                 {/each}
             </select>
-            thousand <span class='data'>{currency[countryCode[country]]}</span>.
-
+            thousand <span class='data'>{currency[countryCode[country]]}</span>
         </div>
+        
             
     </div>
 
@@ -66,6 +65,17 @@
 </Slide>
 
 <style>
+    .profile-select {
+        background-color: #1f1f1f;
+        border: none;
+        color: white;
+        font-family: 'Delicious Handrawn';
+        font-size: 24pt;
+    }
+    .profile-select:hover{
+        cursor: pointer;
+    }
+
     .barchart {
         width: 90vh;
     }

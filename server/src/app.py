@@ -22,6 +22,7 @@ ext_data_dir = './data/mig_ext_roster.csv'
 def index():
     return 'Server is active and running'
 
+#Main Table Migration Dataset
 @app.route('/tipo_familia/<country>', methods=['GET'])
 def get_tipo_familia(country):
     df = pd.read_csv(main_data_dir)
@@ -135,6 +136,37 @@ def get_remesa_amount(country, rsp_age,rsp_sex):
     print(f"remesa amount, slide 2:{remesa}")
 
     return jsonify({'result':str(remesa)})
+
+#External Migration Dataset
+@app.route('/mig_ext_violence/<rsp_sex>', methods=['GET'])
+def get_mig_ext_violence(rsp_sex):
+    df = pd.read_csv(ext_data_dir)
+    df = df[ (df['mig_ext_sex'] == int(rsp_sex))] #(df['rsp_age'] == 10) this is too narrow
+    columns = [
+                'mig_ext_sex',
+                'mig_ext_violence_who'
+            ]
+    df = df[columns]
+
+    #percentage of people who suffered from violence
+    num_nan = df['mig_ext_violence_who'].isna().sum()
+    num_rows = df.shape[0]
+    perc_nan = num_nan/num_rows
+    perc_violence = round(((1-perc_nan)*100),1)
+
+    df = df.groupby(['mig_ext_violence_who'])\
+                .count()\
+                .rename({'mig_ext_sex': 'count'}, axis=1)\
+                .reset_index()
+    
+    index = df['count'].idxmax()
+    highest_violence = df['mig_ext_violence_who'][index ]
+    print(perc_violence)
+    print(highest_violence)
+
+    return jsonify({'highest_violence_group':str(highest_violence),'perc_violence': float(perc_violence) })
+
+
 
 
 

@@ -5,6 +5,61 @@
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
+    export let amountSpent;
+    export let country;
+    export let acompany;
+    export let mig_ext_violence;
+    export let gender;
+    export let violence_group;
+
+    let perc_tot_violence = 10.0
+    let remesa_freq = "Every week or less"
+
+    let countryCode = {
+        'El Salvador': 'SLV',
+        'Honduras': 'HND',
+        'Guatemala': 'GT'
+    }
+
+    let currency = {
+        'SLV': 'Dollars',
+        'HND': 'Lempiras', 
+        'GT': 'Quetzals'
+    }
+
+    let genderCode = {
+        'Woman': 1,
+        'Man': 2
+    }
+
+    let violence_code ={
+        1: 'a traveling companion',
+        2: 'the coyote',
+        3:'extermination groups',
+        4:'organized crime',
+        5:'police and / or armed forces',
+        6:'groups dedicated to the extraction of natural resources',
+        7:'unkown groups',
+        8:'unkown groups'
+
+    }
+
+    let remesa_code = {
+
+    }
+
+
+    onMount( () => {
+        fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                violence_group = res.highest_violence_group
+                perc_tot_violence = res.perc_violence
+
+            })
+    })
+
+    
 
     
 </script>
@@ -17,7 +72,21 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            Migrate External 4
+            You have chosen to spend <span class='data'>{amountSpent} {currency[countryCode[country]]}</span> 
+            to migrate by <span class='data'>{acompany}</span>.
+        </div>
+        <div class='text-container'>
+            It is a long and hard journey. In particular, you are the victim of violence.
+        </div>
+        <div class='text-container'>
+            From your choices, you are <span class='data'>{perc_tot_violence}%</span> likely that you experience 
+            some form of violence during your migration. 
+            If you do experience violence, you are most likely to experience violence from 
+            <span class='data'>{violence_code[violence_group]}</span>.
+        </div>
+        <br>
+        <div class='text-container'>
+            You are TODO% likely to survive and arrive to the US.
         </div>
 
             

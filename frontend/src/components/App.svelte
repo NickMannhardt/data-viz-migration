@@ -93,6 +93,8 @@
     let avg_income = 500
     let debt_amount = 10
     let amountSpent = 10
+    let acompany = 'with your Dad'
+    let mig_ext_violence = 0
 
     let currency = {
         'SLV': 'Dollars',
@@ -187,6 +189,7 @@
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
+            bind:acompany ={acompany}
         />
     {/if}
 
@@ -225,6 +228,10 @@
             name = {name}
             age = {age}
             gender = {gender}
+            currency = {currency}
+            countryCode = {countryCode}
+            amountSpent = {amountSpent}
+            acompany = {acompany}
         />
     {/if}
     {#if (page_index >= 7 || animation_active) && transition_conditions[7].internal}
