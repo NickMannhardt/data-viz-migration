@@ -72,7 +72,7 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            You have chosen to spend <span class='data'>{amountSpent} {currency[countryCode[country]]}</span> 
+            You have chosen to spend <span class='data'>{amountSpent} thousand {currency[countryCode[country]]}</span> 
             to migrate by <span class='data'>{acompany}</span>.
         </div>
         <div class='text-container'>

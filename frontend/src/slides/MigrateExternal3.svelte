@@ -36,7 +36,6 @@
     <div class='flex-center'>
         
         <div class='text-container' >
-            Migration External 3
             Your household earns <span class='data'>{avg_income} {currency[countryCode[country]]}</span>
             per month, and is in <span class='data'>{debt_amount} {currency[countryCode[country]]}</span> debt.
             You don't know how much you will have to spend migrating, but you do

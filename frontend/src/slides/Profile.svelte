@@ -7,8 +7,9 @@
     export let name;
     export let gender;
     export let country;
+    export let age;
 
-    let ages = [...Array(70).keys()]
+    let ages = [...Array(70).keys()];
 
     let female_avatars = [
         'src/images/avatar_2.png',
@@ -64,9 +65,13 @@
                     .
                     <br>
                     You are a 
-                    <select class="profile-select" style="color:#f66d0e;">
-                        {#each ages as age}
-                            <option>{age}</option>
+                    <select 
+                        class="profile-select" 
+                        style="color:#f66d0e;" 
+                        bind:value={age}
+                    >
+                        {#each ages as ageOption}
+                            <option value={ageOption}>{ageOption}</option>
                         {/each}
                     </select>
                     year old
