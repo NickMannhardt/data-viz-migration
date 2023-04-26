@@ -9,14 +9,18 @@
     export let name;
     export let gender;
     export let age;
-    export let income;
+    export let avg_income;
+    export let currency;
+    export let countryCode;
+    export let debt_amount;
+
 
 
     let data = [];
     let n_household = [1,2,3,4,5,6,7,8,9,10]
     let incomes = Array.from({ length: 21 }, (_, i) => i * 0.5);
-    let avg_income = 500;
-    let debt_amount = 0;
+    
+    
     let preocupaciones = 10
 
 
@@ -32,17 +36,9 @@
         bottom: 50,
     }
 
-    let countryCode = {
-        'El Salvador': 'SLV',
-        'Honduras': 'HND',
-        'Guatemala': 'GT'
-    }
 
-    let currency = {
-        'SLV': 'Dollars',
-        'HND': 'Lempiras', 
-        'GT': 'Quetzals'
-    }
+
+    
 
     let preocupaciones_first = {
         1: 'Fear of contagion of COVID-19',

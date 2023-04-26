@@ -7,6 +7,11 @@
     import Dashboard1 from '../slides/Dashboard1.svelte'
     import PersonaInfo1 from '../slides/PersonaInfo1.svelte'
     import PersonaInfo2 from '../slides/PersonaInfo2.svelte'
+    import MigrateExternal1 from '../slides/MigrateExternal1.svelte'
+    import NoMigration from '../slides/NoMigration.svelte'
+    import MigrateExternal2 from '../slides/MigrateExternal2.svelte'
+    import MigrateExternal3 from '../slides/MigrateExternal3.svelte'
+    import MigrateExternal4 from '../slides/MigrateExternal4.svelte'
 
     // Current page being viewed
     var page_index = 0
@@ -85,15 +90,38 @@
     let country = "El Salvador";
     let rural = "rural"
     let migrationDecision = "yes"
-    let income = 3
+    let avg_income = 500
+    let debt_amount = 10
+    let amountSpent = 10
+    let acompany = 'with your Dad'
+    let mig_ext_violence = 0
+
+    let currency = {
+        'SLV': 'Dollars',
+        'HND': 'Lempiras', 
+        'GT': 'Quetzals'
+    }
+
+    let countryCode = {
+        'El Salvador': 'SLV',
+        'Honduras': 'HND',
+        'Guatemala': 'GT'
+    }
 
     $: transition_conditions = {
         0: true,
         1: true,
         2: name.length > 0,
         3: true,
-        4: true
+        4: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
+        5: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
+        6: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
+        7: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")}
     }
+
+    console.log(transition_conditions)
+
+
 
 </script>
 
@@ -117,7 +145,11 @@
             age = {age}
             gender = {gender}
             bind:rural={rural}
-            bind:income = {income}
+            bind:avg_income = {avg_income}
+            bind:debt_amount = {debt_amount}
+            bind:currency = {currency}
+            bind:countryCode = {countryCode}
+            
         />
     {/if}
     {#if (page_index >= 3 || animation_active) && transition_conditions[3]}
@@ -132,8 +164,77 @@
             
         />
     {/if}
+    {#if (page_index >= 4 || animation_active) && transition_conditions[4].external}
+        <MigrateExternal1
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+        />
+    {/if}
+    {#if (page_index >= 4 || animation_active) && transition_conditions[4].internal}
+        <NoMigration
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+        /> 
+    {/if}
+    {#if (page_index >= 5 || animation_active) && transition_conditions[5].external}
+        <MigrateExternal2
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            bind:acompany ={acompany}
+        />
+    {/if}
 
-    {#if (page_index >= 4 || animation_active) && transition_conditions[4]}
+
+    {#if (page_index >= 5 || animation_active) && transition_conditions[5].internal}
+        <Dashboard1
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+        />
+    {/if}
+    {#if (page_index >= 6 || animation_active) && transition_conditions[6].external}
+        <MigrateExternal3
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            avg_income = {avg_income}
+            debt_amount={debt_amount}
+            currency = {currency}
+            countryCode = {countryCode}
+            bind:amountSpent={amountSpent}
+        />
+    {/if}
+    {#if (page_index >= 6 || animation_active) && transition_conditions[6].internal}
+        <Dashboard1
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+        />
+    {/if}
+    {#if (page_index >= 7 || animation_active) && transition_conditions[7].external}
+        <MigrateExternal4
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country} 
+            name = {name}
+            age = {age}
+            gender = {gender}
+            currency = {currency}
+            countryCode = {countryCode}
+            amountSpent = {amountSpent}
+            acompany = {acompany}
+        />
+    {/if}
+    {#if (page_index >= 7 || animation_active) && transition_conditions[7].internal}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
