@@ -6,7 +6,6 @@
     export let scrollUp;
     export let scrollDown;
     export let country;
-    export let name;
     export let gender;
     export let age;
     export let migrationDecision;
