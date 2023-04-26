@@ -134,6 +134,7 @@
             bind:name={name}
             bind:gender={gender}
             bind:country={country}
+            bind:age = {age}
         />
     {/if}
     {#if (page_index >= 2 || animation_active) && transition_conditions[2]}
