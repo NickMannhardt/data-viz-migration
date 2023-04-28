@@ -12,6 +12,7 @@
     import MigrateExternal2 from '../slides/MigrateExternal2.svelte'
     import MigrateExternal3 from '../slides/MigrateExternal3.svelte'
     import MigrateExternal4 from '../slides/MigrateExternal4.svelte'
+    import ScatterTest from '../slides/ScatterTest.svelte';
 
     // Current page being viewed
     var page_index = 0
@@ -127,6 +128,10 @@
 
 <main>
     <Title/>
+    <!-- <ScatterTest
+        scrollUp={scrollUp}
+        scrollDown={scrollDown}
+    /> -->
     {#if page_index >= 1 || animation_active}
         <Profile
             scrollUp={scrollUp}

@@ -1,35 +1,17 @@
 <script>
     import * as d3 from "d3";
-    import { scaleLinear } from "d3-scale";
     import { onMount } from "svelte";
+    import VisualizationWrapper from "./VisualizationWrapper.svelte";
+    import { scaleLinear } from "d3-scale";
 
-    export let data = [];
+    export let cssHeight;
+    export let cssWidth;
+    export let data;
     export let xTitle = "";
     export let yTitle = "";
 
-
-    let div;
-
-    let chartWidth = 1000;
-    let chartHeight = 360;
-
-    onMount( () => {
-        chartWidth = div.clientWidth;
-        chartHeight = div.clientHeight;
-
-        d3.selectAll('.bar')
-            .data(data)
-            .transition()
-            .duration(2000)
-            .attr("height", d => {
-                console.log('hi')
-                console.log(d)
-                return chartHeight - paddings.bottom - yScale(d.size)
-            })
-            .attr("y", d => {
-                return yScale(d.size)
-            })
-    })
+    let height = 500;
+    let width = 1000;
 
     const paddings = {
         top: 50,
@@ -41,16 +23,18 @@
 
     $: xScale = scaleLinear()
         .domain([
-            Math.min(...data.map((d) => d.index)),
+            // Math.min(...data.map((d) => d.index)),
+            0,
             Math.max(...data.map((d) => d.index)) + 1,
         ])
-        .range([paddings.left, chartWidth - paddings.right]);
+        .range([paddings.left, width - paddings.right]);
     $: yScale = scaleLinear()
         .domain([
-            Math.min(...data.map((d) => d.size)),
+            // Math.min(...data.map((d) => d.size)),
+            0,
             Math.max(...data.map((d) => d.size)),
         ])
-        .range([chartHeight - paddings.bottom, paddings.top]);
+        .range([height - paddings.bottom, paddings.top]);
 
     
     let xTicks = [];
@@ -61,39 +45,30 @@
         yTicks = [];
 
         if (data.length > 1) {
-            let index_extent = [
-                Math.round(Math.min(...data.map((d) => d.index))),
-                Math.round(Math.max(...data.map((d) => d.index)) + 1),
-            ];
-
-            // let index_increment = Math.floor(
-            //     (index_extent[1] - index_extent[0]) / numTicks
-            // )
-            let index_increment = chartWidth / data.length
 
             for (let d of data) {
                 xTicks.push(d.label);
             }
 
-            for (
-                let i = index_extent[0];
-                i < index_extent[1];
-                i = i + Math.max(1, index_increment)
-            ) {
-                xTicks.push(i)
-            }
+            // for (
+            //     let i = index_extent[0];
+            //     i < index_extent[1];
+            //     i = i + Math.max(1, index_increment)
+            // ) {
+            //     xTicks.push(i)
+            // }
 
             let size_extent = [
-                Math.round(Math.min(...data.map((d) => d.size))),
+                0,
                 Math.round(Math.max(...data.map((d) => d.size)) + 1),
             ]
 
             let size_increment = Math.floor(
-                (size_extent[1] - size_extent[0]) / numTicks
+                (size_extent[1]) / numTicks
             )
 
             for (
-                let i = size_extent[0];
+                let i = 0;
                 i < size_extent[1];
                 i = i + Math.max(1, size_increment)
             ) {
@@ -130,95 +105,84 @@
     function removePointer() {
         mousePosition = { x: null, y: null };
     }
-    function computeSelectedXValue(value) {
-        currentHoveredPoint = 
-            data[
-                data.indexOf(data.filter((d) => xScale(d.index) >= value)[0]) - 1
-            ];
-        return data.filter((d) => xScale(d.index) >= value)[0].index - 1;
-    }
 
+    onMount(() => {
+        d3.selectAll('.bar')
+            .data(data)
+            .transition()
+            .duration(2000)
+            .attr("height", d => {
+                console.log('hi')
+                console.log(d)
+                return height - paddings.bottom - yScale(d.size)
+            })
+            .attr("y", d => {
+                return yScale(d.size)
+            })
+    })
 </script>
 
-<div bind:this={div} class="visualization">
-    {#if data.length > 1}
-        <svg 
-            width={chartWidth}
-            height={chartHeight}
-            on:mousemove={followMouse}
-            on:mouseleave={removePointer}
-            id={idContainer}
+<VisualizationWrapper
+    cssHeight={cssHeight}
+    cssWidth={cssWidth}
+    bind:chartWidth={width}
+    bind:chartHeight={height}
+    mousemove={followMouse}
+    mouseleave={removePointer}
+    id={idContainer}
+>
+    <g transform="translate({paddings.left}, 0)">
+        {#each yTicks as y}
+            <g
+                class="tick"
+                opacity="1"
+                transform="translate(0,{yScale(y)})"
+            >
+                <line stroke="#FFFFFF" x2={width - paddings.left - paddings.right} />
+                <text 
+                    dy="0.32em" 
+                    fill="#FFFFFF" 
+                    x="-{10}"
+                    text-anchor="end"
+                >
+                    {y}
+                </text>
+            </g>
+        {/each}
+        <text
+            x={width/2}
+            y={height - paddings.bottom/2}
+            text-anchor="middle"
+            font-size="16"
+            fill="#FFFFFF"
         >
-            <g transform="translate({paddings.left}, 0)">
-                {#each yTicks as y}
-                    <g
-                        class="tick"
-                        opacity="1"
-                        transform="translate(0,{yScale(y)})"
-                    >
-                        <line stroke="#FFFFFF" x2={chartWidth - paddings.left - paddings.right} />
-                        <text 
-                            dy="0.32em" 
-                            fill="#FFFFFF" 
-                            x="-{10}"
-                            text-anchor="end"
-                        >
-                            {y}
-                        </text>
-                    </g>
-                {/each}
-                <text
-                    x={chartWidth/2}
-                    y={chartHeight - paddings.bottom/2}
-                    text-anchor="middle"
-                    font-size="16"
-                    fill="#FFFFFF"
-                >
-                    {xTitle}
-                </text>
-                <text
-                    transform={`translate(-${paddings.left/2},${chartHeight/2})rotate(-90)`}
-                    text-anchor="middle"
-                    font-size="16"
-                    fill="#FFFFFF"
-                >
-                    {yTitle}
-                </text>
-            </g>
-            <g>
-                {#each data as d, i}
-                    <rect
-                        x={xScale(data[i].index) + paddings.gap}
-                        y={chartHeight - paddings.bottom - yScale(d.size)}
-                        height={yScale(d.size)}
-                        width={(chartWidth - paddings.left - paddings.right) / data.length - paddings.gap}
-                        fill="#FFFFFF"
-                        class="bar"
-                    />
-                {/each}
-            </g>
-        </svg>
-    {:else}
-        <p>No data to display</p>
-    {/if}
-</div>
+            {xTitle}
+        </text>
+        <text
+            transform={`translate(-${paddings.left/2},${height/2})rotate(-90)`}
+            text-anchor="middle"
+            font-size="16"
+            fill="#FFFFFF"
+        >
+            {yTitle}
+        </text>
+    </g>
+    <g>
+        {#each data as d, i}
+            <rect
+                x={xScale(data[i].index) + paddings.gap}
+                y={height - paddings.bottom}
+                height={0}
+                width={(width - paddings.left - paddings.right) / data.length - paddings.gap}
+                fill="#FFFFFF"
+                class="bar"
+            />
+        {/each}
+    </g>
+</VisualizationWrapper>
+
 
 <style>
-    /* .bar {
-        animation: draw-rect 2s;
-    }
-
-    @keyframes draw-rect {
-        from {
-            height: 0;
-            y: 4000;
-        }
-        to {
-            height: 4000;
-            y: 0;
-        }
-    } */
-
     .bar:hover {
         fill: #31a693;
     }
@@ -226,9 +190,9 @@
     .visualization {
         font: 25px sans-serif;
         /* margin: auto; */
-        margin-top: 1px;
-        text-align: middle;
-        flex-grow: 1;
+        /* margin-top: 1px; */
+        /* text-align: middle; */
+        /* flex-grow: 1; */
     }
 
     .tooltip-hidden {

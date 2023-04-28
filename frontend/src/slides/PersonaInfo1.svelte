@@ -147,7 +147,11 @@
         </div>
         <div class='barchart'>
             {#if data.length > 0}
-                <Bar bind:data={data} bind:xTitle={xTitle} bind:yTitle={yTitle}/>
+                <Bar 
+                    data={data}
+                    xTitle={xTitle}
+                    yTitle={yTitle}
+                />
             {/if}
         </div>
     </div>

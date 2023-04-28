@@ -1,91 +1,107 @@
 <script>
-	import { onMount } from 'svelte';
-	import { scaleLinear } from 'd3-scale';
+    import VisualizationWrapper from "./VisualizationWrapper.svelte";
+    import { scaleLinear } from 'd3-scale';
 
-	export let points;
+    export let cssHeight;
+    export let cssWidth;
+    export let data;
 
-	let svg;
-	let width = 500;
-	let height = 200;
-
-	const padding = { top: 20, right: 40, bottom: 40, left: 25 };
-
-    onMount( () => {
-        chartWidth = div.clientWidth;
-        chartHeight = div.clientHeight;
-
-        d3.selectAll('.bar')
-            .data(data)
-            .transition()
-            .duration(2000)
-            .attr("height", d => {
-                console.log('hi')
-                console.log(d)
-                return chartHeight - paddings.bottom - yScale(d.size)
-            })
-            .attr("y", d => {
-                return yScale(d.size)
-            })
-    })
+    let height = 500;
+    let width = 1000;
 
 	$: xScale = scaleLinear()
-		.domain([0, 20])
+        .domain([
+            0,
+            Math.max(...data.map((d) => d.x)) + 1,
+        ])
 		.range([padding.left, width - padding.right]);
 
 	$: yScale = scaleLinear()
-		.domain([0, 12])
+        .domain([
+            0,
+            Math.max(...data.map((d) => d.y)),
+        ])
 		.range([height - padding.bottom, padding.top]);
 
-	$: xTicks = width > 180 ?
-		[0, 4, 8, 12, 16, 20] :
-		[0, 10, 20];
+    let xTicks = [];
+    let yTicks = [];
+    let numTicks = 4;
+    $: {
+        xTicks = [0];
+        yTicks = [0];
 
-	$: yTicks = height > 180 ?
-		[0, 2, 4, 6, 8, 10, 12] :
-		[0, 4, 8, 12];
+        if (data.length > 1) {
+            let index_extent = [
+                Math.round(Math.min(...data.map((d) => d.x))),
+                Math.round(Math.max(...data.map((d) => d.x)) + 1),
+            ];
 
-	onMount(resize);
+            let index_increment = (index_extent[1] - index_extent[0]) / numTicks
 
-	function resize() {
-		({ width, height } = svg.getBoundingClientRect());
-	}
+            for (
+                let i = index_increment; 
+                i < index_extent[1];
+                i = i + Math.max(1, index_increment)
+            ) {
+                xTicks.push(i);
+            }
+
+            let size_extent = [
+                Math.round(Math.min(...data.map((d) => d.y))),
+                Math.round(Math.max(...data.map((d) => d.y)) + 1),
+            ]
+
+            let size_increment = Math.floor(
+                (size_extent[1] - size_extent[0]) / numTicks
+            )
+
+            for (
+                let i = size_increment;
+                i < size_extent[1];
+                i = i + Math.max(1, size_increment)
+            ) {
+                yTicks.push(i)
+            }
+        }
+    }
+
+	const padding = { top: 20, right: 40, bottom: 40, left: 25 };
+
 </script>
 
-<svelte:window on:resize='{resize}'/>
+<VisualizationWrapper
+    cssHeight={cssHeight}
+    cssWidth={cssWidth}
+    bind:chartWidth={width}
+    bind:chartHeight={height}
+>
+    <!-- y axis -->
+    <g class='axis y-axis'>
+        {#each yTicks as tick}
+            <g class='tick tick-{tick}' transform='translate(0, {yScale(tick)})'>
+                <line x1='{padding.left}' x2='{xScale(22)}'/>
+                <text x='{padding.left - 8}' y='+4'>{tick}</text>
+            </g>
+        {/each}
+    </g>
 
-<svg bind:this={svg}>
-	<!-- y axis -->
-	<g class='axis y-axis'>
-		{#each yTicks as tick}
-			<g class='tick tick-{tick}' transform='translate(0, {yScale(tick)})'>
-				<line x1='{padding.left}' x2='{xScale(22)}'/>
-				<text x='{padding.left - 8}' y='+4'>{tick}</text>
-			</g>
-		{/each}
-	</g>
+    <!-- x axis -->
+    <g class='axis x-axis'>
+        {#each xTicks as tick}
+            <g class='tick' transform='translate({xScale(tick)},0)'>
+                <line y1='{yScale(0)}' y2='{yScale(13)}'/>
+                <text y='{height - padding.bottom + 16}'>{tick}</text>
+            </g>
+        {/each}
+    </g>
 
-	<!-- x axis -->
-	<g class='axis x-axis'>
-		{#each xTicks as tick}
-			<g class='tick' transform='translate({xScale(tick)},0)'>
-				<line y1='{yScale(0)}' y2='{yScale(13)}'/>
-				<text y='{height - padding.bottom + 16}'>{tick}</text>
-			</g>
-		{/each}
-	</g>
-
-	<!-- data -->
-	{#each points as point}
-		<circle cx='{xScale(point.x)}' cy='{yScale(point.y)}' r='5'/>
-	{/each}
-</svg>
+    <!-- data -->
+    {#each data as datum}
+        <circle cx='{xScale(datum.x)}' cy='{yScale(datum.y)}' r='5'/>
+    {/each}
+</VisualizationWrapper>
 
 <style>
-	svg {
-		width: 50%;
-		height: 50%;
-		float: left;
-	}
 
 	circle {
 		fill: orange;
