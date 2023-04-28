@@ -14,6 +14,8 @@
     let data = [];
     let remesa_amount = "0"
 
+    let image_dir = 'src/images/DoYouMigrate.jpg'
+
 
     const paddings = {
         top: 50, 
@@ -91,6 +93,13 @@
             </div>
 
         </div>
+        <div class='image-div'>
+            <img 
+                src={image_dir}
+                alt="oops"
+                width="500"
+            >
+        </div>
         
     </div>
 
@@ -139,6 +148,9 @@
         color: #31a693;
         font-family: 'Delicious Handrawn';
         font-size: 24pt;
+    }
+    .image-div {
+        margin-right: 0vh;
     }
     
 </style>
