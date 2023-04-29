@@ -23,12 +23,28 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            You've chosen not to migrate.
+            You've chosen NOT to migrate.
             
         </div>
         <div class='text-container'>
             Some information about your options and outcomes.
         </div>
+        <div class='text-container'>
+            Your average income is #avg_income_amount #currency.
+            You have #saving_months #currency months worth of savings to support your family.
+            You have #debt_months #currency months worth of debt to pay off.
+
+            Your top concern is #preocupaciones_first, follwed by #preocupaciones_second
+            and #preocupaciones_third.
+
+        </div>
+
+
+        <div class='text-container'>
+            You recieve #x #currency remittances from #remesa_parentesco. They were
+            able to migrate aboroad and are now working as #remesa_remit_ocupacion.
+        </div>
+        
 
             
     </div>
