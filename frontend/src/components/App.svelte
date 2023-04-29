@@ -94,7 +94,7 @@
     let avg_income = 500
     let debt_amount = 10
     let amountSpent = 10
-    let acompany = 'with your Dad'
+    let acompany = 'with your family'
     let mig_ext_violence = 0
 
     let currency = {

@@ -27,6 +27,8 @@
         'I don\'t wish to respond':99
     }
 
+    let image_dir = 'src/images/money_willing_to_spend.jpg'
+
 
     
 </script>
@@ -74,8 +76,14 @@
             Even as you prepare, one of the most consequential questions of your
              journey is weighing on you: how you will travel, and with whom.
         </div>
-
-            
+        <div class='image-div'>
+            <img 
+                src={image_dir}
+                alt="oops"
+                width="600"
+            >
+        </div>
+        
     </div>
 
     
@@ -123,6 +131,10 @@
         color: #31a693;
         font-family: 'Delicious Handrawn';
         font-size: 24pt;
+    }
+
+    .image-div {
+        margin-right: 0vh;
     }
     
 </style>

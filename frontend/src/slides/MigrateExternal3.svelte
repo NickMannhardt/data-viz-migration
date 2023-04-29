@@ -24,6 +24,7 @@
     }
 
     let amounts = Array.from({ length: 50 }, (_, i) => (i+1) * 1)
+    let image_dir = 'src/images/Alone.jpg'
     
     
 </script>
@@ -55,6 +56,13 @@
                 {/each}
             </select>
             thousand <span class='data'>{currency[countryCode[country]]}</span>
+        </div>
+        <div class='image-div'>
+            <img 
+                src={image_dir}
+                alt="oops"
+                width="700"
+            >
         </div>
         
             
