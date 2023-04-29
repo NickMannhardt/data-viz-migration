@@ -66,6 +66,8 @@
 
     let rural = "rural";
 
+    let image_dir = 'src/images/long_and_arduous_journey.jpg'
+
     onMount( () => {
         fetch(`http://localhost:8080/avg_income_amount/${countryCode[country]}`)
             .then(res => res.json())
@@ -149,6 +151,17 @@
             {#if data.length > 0}
                 <Bar bind:data={data} bind:xTitle={xTitle} bind:yTitle={yTitle}/>
             {/if}
+        </div>
+        <div class='text-container'>
+            Now you begin to plan your long and arduous journey.
+        </div>
+        
+        <div class='image-div'>
+            <img 
+                src={image_dir}
+                alt="oops"
+                width="500"
+            >
         </div>
     </div>
 

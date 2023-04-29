@@ -7,22 +7,51 @@
     export let scrollDown;
     export let country;
     export let acompany;
+    export let coyote;
 
     let finance = 'Bank loan'
 
     let destCountry = 'United States of America'
 
-    let accompanyId = {
-        'with your Dad': 1,
-        'with your Mother': 2,
-        'with your Brother': 3,
-        'with a known person': 4,
-        'with your child': 5,
-        'alone': 6,
-        'with a coyote': 7,
-        'with another relative': 8,
-        'with an unfamiliar person':9,
+
+    let acompany_dir = null;
+    let coyote_dir = null;
+
+
+    function chooseAccompany(acompany) {
+        if (acompany === 'with your family'){
+            acompany_dir  = 'src/images/family.jpg'
+        }
+        else 
+        {
+            acompany_dir  ='src/images/Alone.jpg'
+        }
+
     }
+
+    chooseAccompany(acompany)
+
+    let accompanyId = {
+        'with your family': [1,2,3,5,8],
+        'alone': 6
+    }
+
+    let coyoteID = {
+        'yes':  7,
+        'no': [1,2,3,5,8]
+    }
+
+    function chooseCoyote(coyote) {
+        if (coyote === 'yes'){
+            coyote_dir = 'src/images/Coyote.jpg'
+        }
+        else 
+        {
+            coyote_dir ='src/images/NoCoyote-02-01.jpg'
+        }
+
+    }
+    chooseCoyote(coyote)
 
 
     
@@ -45,23 +74,58 @@
         <br>
         <div class='text-container'>
             This is a long, arduous journey, and you debate who you want to 
-            travel with. You decide you want to travel with
+            travel with. You decide you want to travel
             <select 
                 class="input-select" 
                 style="color:#a8181c;"
                 bind:value={acompany}
+                onchange={chooseAccompany(acompany)}
             >
-            <option>with your Dad</option>
-            <option>with your Mother</option>
-            <option>with your Brother</option>
-            <option>with a known person</option>
-            <option>with your child</option>
+            <option>with your family</option>
             <option> alone</option>
-            <option>with a coyote</option>
-            <option>with another relative</option>
-            <option>with an unfamiliar person</option>
-            </select>        
+            </select>   
+            .     
         </div>
+        <br>
+        <div class='text-container'>
+        A coyote, or coyotero, is slang for people smuggler. Smugglers illegally
+        accept money to help migrants cross into the United States from Mexico,
+        often by guiding the migrants over the hills and through the desert or
+        by forging papers and contracts to bypass the slow bureaucratic process.
+        Other smugglers, called polleros, transport migrants over the border
+        in secret compartments of cars and vans.
+            </div>
+            <br>
+        <div class='input-container'> 
+            Do you want to travel with a coyote?
+            <br>
+            <select 
+                class="input-select" 
+                style="color:#a8181c;"
+                bind:value={coyote}
+                onchange = {chooseCoyote(coyote)}
+            >
+                <option>yes</option>
+                <option>no</option>
+            </select>
+        </div>
+        <div class='flex-row'>
+        <div class='image-div'>
+            <img 
+                src={acompany_dir}
+                alt="oops"
+                height = "300"
+            >
+        </div>
+        <div class='image-div'>
+            <img 
+                src={coyote_dir}
+                alt="oops"
+                height = "300"
+            >
+
+        </div>
+    </div>
 
             
     </div>
@@ -70,9 +134,6 @@
 </Slide>
 
 <style>
-    .barchart {
-        width: 90vh;
-    }
 
     .flex-center {
         display: flex;
@@ -112,5 +173,13 @@
         font-family: 'Delicious Handrawn';
         font-size: 24pt;
     }
+    .image-div {
+        margin-right: 0vh;
+    }
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+    
     
 </style>
