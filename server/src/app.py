@@ -167,6 +167,47 @@ def get_mig_ext_violence(rsp_sex):
     return jsonify({'highest_violence_group':str(highest_violence),'perc_violence': float(perc_violence) })
 
 
+@app.route('/mig_ext_attempts/<rsp_age>/<rsp_sex>', methods=['GET'])
+def get_mig_ext_attempts(rsp_age,rsp_sex,):
+     # Read the data into a dataframe
+    df = pd.read_csv(ext_data_dir)
+
+    rsp_age = int(rsp_age)
+
+    # Create a new column that groups ages into 10-year intervals
+    df['age_bracket'] = pd.cut(df['mig_ext_age'], bins=range(0, 121, 10))
+
+    # Define the desired age bracket based on a numeric age value
+    age_bracket = pd.Interval((rsp_age//10)*10, ((rsp_age//10)*10)+10)
+
+    # Apply the age and gender filter
+    df = df[(df['mig_ext_sex'] == int(rsp_sex)) & (df['age_bracket'] == age_bracket)]
+
+    # Select the desired columns
+    columns = [ 'mig_ext_attempts', 'age_bracket']
+    df = df[columns]
+
+
+    # Group the data by attempts and age bracket, and count the number of occurrences
+    df = df.groupby(['mig_ext_attempts'])\
+                .count()\
+                .rename({'age_bracket': 'count'}, axis=1)\
+                .reset_index()
+
+    # Calculate total count
+    total_count = df['count'].sum()
+
+    # Calculate the percentage of each count value over the total number of counts
+    perc = []
+    attempt_counts = [1, 2, 3,4,5]
+    for attempt in attempt_counts:
+        if attempt not in df['mig_ext_attempts'].values:
+            df = df.append({'mig_ext_attempts': attempt, 'count': 0}, ignore_index=True)
+        count = df[df['mig_ext_attempts'] == attempt]['count'].iloc[0]
+        percentage = (count / total_count) * 100
+        perc.append(percentage)
+    return jsonify({'perc1':round(perc[0],1),'perc2':round(perc[1],1),'perc3':round(perc[2],1),'perc4plus':round((perc[3]+perc[4]),1)})
+
 
 
 
