@@ -11,6 +11,11 @@
     export let mig_ext_violence;
     export let gender;
     export let violence_group;
+    export let age;
+    let perc_attempt1 = 0.0
+    let perc_attempt2 = 0.0
+    let perc_attempt3 = 0.0
+    let perc_attempt4plus = 0.0
 
     let perc_tot_violence = 10.0
     let remesa_freq = "Every week or less"
@@ -49,12 +54,26 @@
     }
 
 
+
+
     onMount( () => {
         fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 violence_group = res.highest_violence_group
                 perc_tot_violence = res.perc_violence
+
+            })
+    })
+
+    onMount( () => {
+        fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                perc_attempt1 = res.perc1
+                perc_attempt2 = res.perc2
+                perc_attempt3 = res.perc3
+                perc_attempt4plus = res.perc4plus
 
             })
     })
@@ -86,8 +105,17 @@
         </div>
         <br>
         <div class='text-container'>
-            You are TODO% likely to survive and arrive to the US.
+            You will proabably not make it on your first attempt. Based on your age and gender
+            you are <span class='data'>{perc_attempt1}%</span> likely of attempting the trip once, 
+            <span class='data'>{perc_attempt2}%</span> likely of attempting the trip twice,
+            <span class='data'>{perc_attempt3}%</span> likely of attempting the trip thrice,
+            <span class='data'>{perc_attempt4plus}%</span> likely of attempting the trip 4 times or more.
         </div>
+        <br>
+        <div class='text-container'>
+            You chances of remittances based on your migration choices. 
+        </div>
+
 
             
     </div>
