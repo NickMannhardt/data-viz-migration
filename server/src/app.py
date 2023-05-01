@@ -186,6 +186,28 @@ def get_remesa_parentesco(country,rsp_sex):
     remesa_parentesco= df['remesa_parentesco'][index ]
     return jsonify({'result':int(remesa_parentesco)})
 
+@app.route('/remesa_remit_ocupacion/<country>/<rsp_sex>', methods=['GET'])
+def get_remesa_remit_ocupacion(country,rsp_sex):
+    df = pd.read_csv(main_data_dir)
+    print(f"rsp_sex:{rsp_sex}")
+    # apply the age and gender filter to calculate the highest preocupaciones_first
+    df = df[ (df['rsp_sex'] == int(rsp_sex))] #(df['rsp_age'] == 10) this is too narrow
+
+    columns = [
+            'country',
+            'remesa_remit_ocupacion'
+        ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['remesa_remit_ocupacion'])\
+            .count()\
+            .rename({'country': 'count'}, axis=1)\
+            .reset_index()
+
+    index = df['count'].idxmax()
+    remesa_remit_ocupacion= df['remesa_remit_ocupacion'][index ]
+    return jsonify({'result':int(remesa_remit_ocupacion)})
+
 @app.route('/remesa_amount/<country>/<rsp_age>/<rsp_sex>', methods=['GET'])
 def get_remesa_amount(country, rsp_age,rsp_sex):
     # apply the age and gender filter to calculate the mean remesa for that demographic
