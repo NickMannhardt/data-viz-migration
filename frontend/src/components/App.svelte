@@ -127,11 +127,11 @@
 </script>
 
 <main>
-    <Title/>
-    <!-- <ScatterTest
+    <!-- <Title/> -->
+    <ScatterTest
         scrollUp={scrollUp}
         scrollDown={scrollDown}
-    /> -->
+    />
     {#if page_index >= 1 || animation_active}
         <Profile
             scrollUp={scrollUp}
