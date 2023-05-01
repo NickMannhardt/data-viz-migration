@@ -160,13 +160,13 @@
             Now you begin to plan your long and arduous journey.
         </div>
         
-        <div class='image-div'>
+        <!-- <div class='image-div'>
             <img 
                 src={image_dir}
                 alt="oops"
                 width="500"
             >
-        </div>
+        </div> -->
     </div>
 
     

@@ -3,6 +3,7 @@
     import Bar from '../components/Bar.svelte';
 
     import { onMount } from 'svelte';
+    import BubbleChart from '../components/BubbleChart.svelte';
     export let scrollUp;
     export let scrollDown;
     export let amountSpent;
@@ -115,8 +116,14 @@
         <div class='text-container'>
             You chances of remittances based on your migration choices. 
         </div>
-
-
+        <BubbleChart
+            cssHeight=40
+            cssWidth=60
+            data={[
+                {label: 'A', size: 23},
+                {label: 'B', size: 51},
+            ]}
+        />
             
     </div>
 

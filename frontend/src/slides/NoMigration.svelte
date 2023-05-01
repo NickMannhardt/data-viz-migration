@@ -1,5 +1,6 @@
 <script>
-    import Slide from '../components/Slide.svelte';
+    import BubbleChart from '../components/BubbleChart.svelte';
+import Slide from '../components/Slide.svelte';
     
 
     import { onMount } from 'svelte';
@@ -27,7 +28,14 @@
             
         </div>
         <div class='text-container'>
-            Some information about your options and outcomes.
+            <BubbleChart
+                cssHeight=60
+                cssWidth=80
+                data={[
+                    {label: 'A', size: 23},
+                    {label: 'B', size: 51},
+                ]}
+            />
         </div>
 
             

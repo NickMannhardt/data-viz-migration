@@ -13,6 +13,7 @@
     import MigrateExternal3 from '../slides/MigrateExternal3.svelte'
     import MigrateExternal4 from '../slides/MigrateExternal4.svelte'
     import ScatterTest from '../slides/ScatterTest.svelte';
+    import Filters from './Filters.svelte';
 
     // Current page being viewed
     var page_index = 0
@@ -127,11 +128,25 @@
 </script>
 
 <main>
-    <!-- <Title/> -->
-    <ScatterTest
+    {#if page_index >= 2}
+        <Filters
+            disabled={!(page_index >= 4 && transition_conditions[4].internal) && !(page_index >= 7 && transition_conditions[7].external)}
+            bind:gender={gender}
+            bind:country={country}
+            bind:age={age}
+            bind:rural={rural}
+            show_rural={page_index >= 3}
+            bind:migrationDecision={migrationDecision}
+            show_migration={page_index >= 4}
+            bind:acompany={acompany}
+            show_acompany={page_index >=6}
+        />
+    {/if}
+    <Title/>
+    <!-- <ScatterTest
         scrollUp={scrollUp}
         scrollDown={scrollDown}
-    />
+    /> -->
     {#if page_index >= 1 || animation_active}
         <Profile
             scrollUp={scrollUp}
@@ -240,13 +255,13 @@
             acompany = {acompany}
         />
     {/if}
-    {#if (page_index >= 7 || animation_active) && transition_conditions[7].internal}
+    <!-- {#if (page_index >= 7 || animation_active) && transition_conditions[7].internal}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
         />
-    {/if}
+    {/if} -->
     <Slide></Slide>  <!-- This buffer slide should remain hidden -->
 </main>
 
