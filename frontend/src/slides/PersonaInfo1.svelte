@@ -158,13 +158,13 @@
         </div>
         <div class='text-container'>Now you begin to plan your long and arduous journey.</div>
         
-        <div class='image-div'>
+        <!-- <div class='image-div'>
             <img 
                 src={image_dir}
                 alt="oops"
                 height="200"
             >
-        </div>
+        </div> -->
     </div>
 
     

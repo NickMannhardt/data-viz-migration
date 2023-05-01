@@ -1,5 +1,6 @@
 <script>
     import Bar from "../components/Bar.svelte";
+    import BubbleChart from "../components/BubbleChart.svelte";
     import Scatterplot from "../components/Scatterplot.svelte";
     import Slide from "../components/Slide.svelte";
 
@@ -17,6 +18,17 @@
             hello
         </div>
         <div class='container'>
+            <BubbleChart
+                cssHeight=40
+                cssWidth=60
+                data={[
+                    // 0, 1, 2, 3
+                    // {a: 0},{a: 1},{a: 2},{a: 3}
+                    {label: 'A', size: 23},
+                    {label: 'B', size: 51},
+                    // {label: 'C', size: 32},
+                ]}
+            />
             <!-- <Scatterplot
                 cssHeight=40
                 cssWidth=60
@@ -27,8 +39,8 @@
                     {x: 3, y: 8},
                     {x: 12, y: 3},
                 ]}
-            /> -->
-            <Bar
+            />  -->
+            <!-- <Bar
                 cssHeight=60
                 cssWidth=80
                 data={[
@@ -39,7 +51,7 @@
                     {index: 4, size: 12},
                     {index: 5, size: 11},
                 ]}
-            />
+            /> -->
         </div>
     </div>
 </Slide>
