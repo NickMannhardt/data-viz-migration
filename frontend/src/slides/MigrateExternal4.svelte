@@ -128,23 +128,33 @@
         <div class='text-container'>
             You chances of remittances based on your migration choices.
         </div>
-        <div class='barchart'>
-            {#if data_remesa.length > 0}
-                <Bar
-                    data={data_remesa}
-                    xTitle={xTitle}
-                    yTitle={yTitle}
-                />
-            {/if}
-        </div>
-        <BubbleChart
+
+        <div class='flex-row'>
+            <div class='barchart'>
+                {#if data_remesa.length > 0}
+                    <Bar
+                        data={data_remesa}
+                        xTitle={xTitle}
+                        yTitle={yTitle}
+                    />
+                {/if}
+            </div>
+            <div class='barchart'>
+                <BubbleChart
             cssHeight=40
-            cssWidth=60
+            cssWidth=40
             data={[
                 {label: 'A', size: 23},
                 {label: 'B', size: 51},
             ]}
-        />
+            />
+            </div>
+            
+    
+        </div>
+
+        
+        
             
     </div>
 
@@ -201,6 +211,13 @@
 
         /* width: 100vh; */
         /* height: 50vh; */
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+        margin-left: 20vh;
+        margin-top: 5vh;
     }
     
 </style>
