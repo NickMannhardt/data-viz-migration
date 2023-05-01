@@ -52,6 +52,7 @@ def get_avg_income_amount(country):
         .count()\
         .rename({'country': 'count'}, axis=1)\
         .reset_index()
+    print(df)
     return json.loads(df.to_json(orient='records', index=True))
 
 @app.route('/mean_income_amount/<country>', methods=['GET'])
@@ -68,6 +69,38 @@ def get_mean_income_amount(country):
         .rename({'country': 'count'}, axis=1)\
         .reset_index()
     df2 = df['avg_income_amount'].mean()
+    return jsonify({'result':int(df2)})
+
+@app.route('/saving_months/<country>', methods=['GET'])
+def get_saving_months(country):
+    df = pd.read_csv(main_data_dir)
+    columns = [
+        'country',
+        'saving_months'
+    ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['saving_months'])\
+        .count()\
+        .rename({'country': 'count'}, axis=1)\
+        .reset_index()
+    df2 = df['saving_months'].mean()
+    return jsonify({'result':int(df2)})
+
+@app.route('/debt_months/<country>', methods=['GET'])
+def get_debt_months(country):
+    df = pd.read_csv(main_data_dir)
+    columns = [
+        'country',
+        'debt_months'
+    ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['debt_months'])\
+        .count()\
+        .rename({'country': 'count'}, axis=1)\
+        .reset_index()
+    df2 = df['debt_months'].mean()
     return jsonify({'result':int(df2)})
 
 @app.route('/debt_amount/<country>', methods=['GET'])
@@ -109,6 +142,50 @@ def get_preocupaciones_first(country,rsp_sex):
     highest_preocc = df['preocupaciones_first'][index ]
     return jsonify({'result':str(highest_preocc)})
 
+@app.route('/econ_condition/<country>/<rsp_sex>', methods=['GET'])
+def get_econ_condition(country,rsp_sex):
+    df = pd.read_csv(main_data_dir)
+    print(f"rsp_sex:{rsp_sex}")
+    # apply the age and gender filter to calculate the highest preocupaciones_first
+    df = df[ (df['rsp_sex'] == int(rsp_sex))] #(df['rsp_age'] == 10) this is too narrow
+
+    columns = [
+            'country',
+            'econ_condition'
+        ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['econ_condition'])\
+            .count()\
+            .rename({'country': 'count'}, axis=1)\
+            .reset_index()
+
+    index = df['count'].idxmax()
+    econ_condition= df['econ_condition'][index ]
+    return jsonify({'result':int(econ_condition)})
+
+@app.route('/remesa_parentesco/<country>/<rsp_sex>', methods=['GET'])
+def get_remesa_parentesco(country,rsp_sex):
+    df = pd.read_csv(main_data_dir)
+    print(f"rsp_sex:{rsp_sex}")
+    # apply the age and gender filter to calculate the highest preocupaciones_first
+    df = df[ (df['rsp_sex'] == int(rsp_sex))] #(df['rsp_age'] == 10) this is too narrow
+
+    columns = [
+            'country',
+            'remesa_parentesco'
+        ]
+    df = df[columns]
+    df = df[df['country'] == country]
+    df = df.groupby(['remesa_parentesco'])\
+            .count()\
+            .rename({'country': 'count'}, axis=1)\
+            .reset_index()
+
+    index = df['count'].idxmax()
+    remesa_parentesco= df['remesa_parentesco'][index ]
+    return jsonify({'result':int(remesa_parentesco)})
+
 @app.route('/remesa_amount/<country>/<rsp_age>/<rsp_sex>', methods=['GET'])
 def get_remesa_amount(country, rsp_age,rsp_sex):
     # apply the age and gender filter to calculate the mean remesa for that demographic
@@ -137,6 +214,51 @@ def get_remesa_amount(country, rsp_age,rsp_sex):
 
     return jsonify({'result':str(remesa)})
 
+@app.route('/final_remesa_amount/<country>/<rsp_age>/<rsp_sex>', methods=['GET'])
+def get_final_remesa_amount(country, rsp_age,rsp_sex):
+    df = pd.read_csv(main_data_dir)
+
+    rsp_age = int(rsp_age)
+
+    # Create a new column that groups ages into 10-year intervals
+    df['age_bracket'] = pd.cut(df['rsp_age'], bins=range(0, 121, 10))
+
+    # Define the desired age bracket based on a numeric age value
+    age_bracket = pd.Interval((rsp_age//10)*10, ((rsp_age//10)*10)+10)
+
+    columns = [
+            'country',
+            'remesa_amount',
+            'age_bracket',
+            'rsp_sex']
+
+    df = df[ (df['country'] == country) & (df['rsp_sex'] == int(rsp_sex))& (df['age_bracket'] == age_bracket )]
+
+    df = df[columns]
+    df = df.dropna()
+
+    df = df.groupby(['remesa_amount'])\
+            .count()\
+            .rename({'country': 'count'}, axis=1)\
+            .reset_index()
+    df['remesa_bracket'] = pd.cut(df['remesa_amount'], bins=range(0, int(df['remesa_amount'].max()) + 51, 50), right=False)
+
+    df = df.groupby(['remesa_bracket'])\
+        .count()\
+        .rename({'count': 'count'}, axis=1)\
+        .reset_index()
+
+    total_remesas = df['count'].sum()
+    df['remesa_pct'] = (df['count'] / total_remesas * 100).astype(int)
+
+    df = df[['remesa_bracket','remesa_pct']]
+    df['remesa_bracket'] = df['remesa_bracket'].apply(lambda x:  int(x.right))
+    print(df)
+    return json.loads(df.to_json(orient='records', index=True))
+
+
+
+
 #External Migration Dataset
 @app.route('/mig_ext_violence/<rsp_sex>', methods=['GET'])
 def get_mig_ext_violence(rsp_sex):
@@ -161,8 +283,6 @@ def get_mig_ext_violence(rsp_sex):
     
     index = df['count'].idxmax()
     highest_violence = df['mig_ext_violence_who'][index ]
-    print(perc_violence)
-    print(highest_violence)
 
     return jsonify({'highest_violence_group':str(highest_violence),'perc_violence': float(perc_violence) })
 

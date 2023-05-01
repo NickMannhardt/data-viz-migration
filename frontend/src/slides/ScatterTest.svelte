@@ -17,7 +17,7 @@
             hello
         </div>
         <div class='container'>
-            <Scatterplot
+            <!-- <Scatterplot
                 cssHeight=40
                 cssWidth=60
                 data={[
@@ -27,7 +27,7 @@
                     {x: 3, y: 8},
                     {x: 12, y: 3},
                 ]}
-            /> 
+            /> -->
             <Bar
                 cssHeight=60
                 cssWidth=80

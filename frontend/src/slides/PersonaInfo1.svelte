@@ -56,7 +56,6 @@
         13:'Fear of facing a natural threat (hurricanes, volcanic eruptions, plagues, etc.)',
         14:'Other',
         15: 'Without worries'
-
     }
 
     let genderCode = {
@@ -155,16 +154,15 @@
                     yTitle={yTitle}
                 />
             {/if}
+            
         </div>
-        <div class='text-container'>
-            Now you begin to plan your long and arduous journey.
-        </div>
+        <div class='text-container'>Now you begin to plan your long and arduous journey.</div>
         
         <div class='image-div'>
             <img 
                 src={image_dir}
                 alt="oops"
-                width="500"
+                height="200"
             >
         </div>
     </div>
@@ -175,6 +173,7 @@
 <style>
     .barchart {
         width: 90vh;
+
     }
 
     .flex-center {
@@ -184,7 +183,7 @@
     }
 
     .text-container {
-        font-size: 24pt;
+        font-size: 18pt;
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -194,26 +193,26 @@
         border: none;
         color: white;
         font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .input-select{
         cursor: pointer;
     }
     .input-container {
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .profile-select {
         background-color: #1f1f1f;
         border: none;
         color: white;
         font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-size: 18pt;
     }
 
     .data{
         color: #31a693;
         font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-size: 18pt;
     }
     
 </style>

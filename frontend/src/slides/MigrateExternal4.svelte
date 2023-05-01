@@ -1,6 +1,7 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
+    import Scatterplot from "../components/Scatterplot.svelte";
 
     import { onMount } from 'svelte';
     export let scrollUp;
@@ -8,7 +9,6 @@
     export let amountSpent;
     export let country;
     export let acompany;
-    export let mig_ext_violence;
     export let gender;
     export let violence_group;
     export let age;
@@ -49,11 +49,7 @@
 
     }
 
-    let remesa_code = {
-
-    }
-
-
+    let data_remesa = [];
 
 
     onMount( () => {
@@ -77,6 +73,23 @@
 
             })
     })
+
+    onMount( () => {
+        fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                data_remesa = res.map(d => {
+                    return {
+                        index: d['remesa_bracket'],
+                        size: d['remesa_pct']
+                    }
+                })
+            })
+    })
+
+    let xTitle= "Remesa Bracket";
+    let yTitle = "Percentage %";
+
 
     
 
@@ -113,11 +126,17 @@
         </div>
         <br>
         <div class='text-container'>
-            You chances of remittances based on your migration choices. 
+            You chances of remittances based on your migration choices.
         </div>
-
-
-            
+        <div class='barchart'>
+            {#if data_remesa.length > 0}
+                <Bar
+                    data={data_remesa}
+                    xTitle={xTitle}
+                    yTitle={yTitle}
+                />
+            {/if}
+        </div>
     </div>
 
     
@@ -135,7 +154,7 @@
     }
 
     .text-container {
-        font-size: 24pt;
+        font-size: 18pt;
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -145,26 +164,34 @@
         border: none;
         color: white;
         font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .input-select{
         cursor: pointer;
     }
     .input-container {
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .profile-select {
         background-color: #1f1f1f;
         border: none;
         color: white;
         font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-size: 18pt;
     }
 
     .data{
         color: #31a693;
         font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-size: 18pt;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        padding: 1vh;
+
+        /* width: 100vh; */
+        /* height: 50vh; */
     }
     
 </style>

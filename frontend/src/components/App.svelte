@@ -188,6 +188,9 @@
             name = {name}
             age = {age}
             gender = {gender}
+            avg_income = {avg_income}
+            currency = {currency}
+            countryCode = {countryCode}
         /> 
     {/if}
     {#if (page_index >= 5 || animation_active) && transition_conditions[5].external}
