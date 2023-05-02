@@ -24,7 +24,7 @@
     }
 
     let amounts = Array.from({ length: 50 }, (_, i) => (i+1) * 1)
-    let image_dir = 'src/images/Envelope.jpg'
+    let image_dir = '/images/Envelope.jpg'
     
     
 </script>

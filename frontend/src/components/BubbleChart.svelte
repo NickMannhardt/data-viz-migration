@@ -38,7 +38,7 @@
             .enter()
             .append("image")
                 .attr("class", "node")
-                .attr("xlink:href", "/components/human_icon.png")
+                .attr("xlink:href", "images/human_icon.png")
                 .attr("x", (d) => (width / 2 + d.category*40))
                 .attr("y", d => (height / 2 + d.category*20))
                 .attr("height", Math.min(width, height)/12)

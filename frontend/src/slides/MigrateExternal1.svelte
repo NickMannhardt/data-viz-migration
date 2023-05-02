@@ -27,7 +27,7 @@
         'I don\'t wish to respond':99
     }
 
-    let image_dir = 'src/images/money_willing_to_spend.jpg'
+    let image_dir = '/images/money_willing_to_spend.jpg'
 
 
     

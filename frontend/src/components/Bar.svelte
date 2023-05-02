@@ -10,7 +10,10 @@
     export let xTitle = "";
     export let yTitle = "";
 
-    let height = 500;
+    console.log('data');
+    console.log(data);
+
+    let height = 200;
     let width = 1000;
 
     const paddings = {
@@ -25,7 +28,8 @@
         .domain([
             // Math.min(...data.map((d) => d.index)),
             0,
-            Math.max(...data.map((d) => d.index)) + 1,
+            data.length
+            // Math.max(...data.map((d) => d.index)) + 1,
         ])
         .range([paddings.left, width - paddings.right]);
     $: yScale = scaleLinear()
@@ -34,7 +38,7 @@
             0,
             Math.max(...data.map((d) => d.size)),
         ])
-        .range([height - paddings.bottom, paddings.top]);
+        .range([paddings.top, height - paddings.bottom]);
 
     
     let xTicks = [];
@@ -77,6 +81,7 @@
         }
     }
 
+    const graphId = "bar-" + Math.floor(Math.random() * 1000000);
     const idContainer = "svg-container-" + Math.random() * 1000000;
     let mousePosition = { x: null, y: null };
     let pageMousePosition = { x: null, y: null };
@@ -107,16 +112,31 @@
     }
 
     onMount(() => {
-        d3.selectAll('.bar')
+        let xScale = scaleLinear()
+            .domain([
+                0,
+                Math.max(...data.map((d) => d.index)) + 1,
+            ])
+            .range([paddings.left, width - paddings.right]);
+        let yScale = scaleLinear()
+            .domain([
+                0,
+                Math.max(...data.map((d) => d.size)),
+            ])
+            .range([0, height - paddings.bottom - paddings.top]);
+
+        d3.selectAll(`.${graphId}`)
             .data(data)
             .transition()
             .duration(2000)
             .attr("height", d => {
-                return height - paddings.bottom - yScale(d.size)
+                return yScale(Math.max(d.size, 0))
             })
             .attr("y", d => {
-                return yScale(d.size)
+                return height - paddings.bottom -  yScale(Math.max(0, d.size))
             })
+        
+        console.log('updated bar')
     })
 </script>
 
@@ -134,7 +154,7 @@
             <g
                 class="tick"
                 opacity="1"
-                transform="translate(0,{yScale(y)})"
+                transform="translate(0,{height + paddings.top - paddings.bottom - yScale(y)})"
             >
                 <line stroke="#FFFFFF" x2={width - paddings.left - paddings.right} />
                 <text 
@@ -168,12 +188,12 @@
     <g>
         {#each data as d, i}
             <rect
-                x={xScale(data[i].index) + paddings.gap}
+                x={xScale(i) + paddings.gap}
                 y={height - paddings.bottom}
                 height={0}
                 width={(width - paddings.left - paddings.right) / data.length - paddings.gap}
                 fill="#FFFFFF"
-                class="bar"
+                class={graphId}
             />
         {/each}
     </g>
