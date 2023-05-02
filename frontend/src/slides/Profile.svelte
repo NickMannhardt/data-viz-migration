@@ -1,4 +1,5 @@
 <script>
+    
     import { onMount } from 'svelte';
     import Slide from '../components/Slide.svelte'
 
@@ -12,12 +13,12 @@
     let ages = [...Array(70).keys()];
 
     let female_avatars = [
-        'src/images/avatar_2.png',
-        'src/images/avatar_3.png'
+        'images/avatar_2.png',
+        'images/avatar_3.png'
     ]
     let male_avatars = [
-        'src/images/avatar_1.png',
-        'src/images/avatar_4.png'
+        'images/avatar_1.png',
+        'images/avatar_4.png'
     ]
     
     let image_dir = null;

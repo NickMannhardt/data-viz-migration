@@ -112,8 +112,6 @@
             .transition()
             .duration(2000)
             .attr("height", d => {
-                console.log('hi')
-                console.log(d)
                 return height - paddings.bottom - yScale(d.size)
             })
             .attr("y", d => {

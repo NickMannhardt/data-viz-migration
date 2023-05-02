@@ -13,7 +13,7 @@
     import MigrateExternal3 from '../slides/MigrateExternal3.svelte'
     import MigrateExternal4 from '../slides/MigrateExternal4.svelte'
     import ScatterTest from '../slides/ScatterTest.svelte';
-    import Filters from './Filters.svelte';
+    import Filters from '../components/Filters.svelte';
 
     // Current page being viewed
     var page_index = 0
@@ -30,6 +30,7 @@
         })
 
         function scrollPageDown() {
+            // console.log(`index: ${page_index}`)
             if (transition_conditions[page_index + 1]) {
                 page_index += 1
 
@@ -42,6 +43,7 @@
         }
         
         function scrollPageUp() {
+            // console.log(`index: ${page_index}`)
             if (page_index > 0) {
                 page_index -= 1
             }
@@ -121,7 +123,7 @@
         7: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")}
     }
 
-    console.log(transition_conditions)
+    console.log(`decision: ${migrationDecision}`)
 
 
 
@@ -198,7 +200,6 @@
     {#if (page_index >= 4 || animation_active) && transition_conditions[4].internal}
         <NoMigration
             scrollUp={scrollUp}
-            scrollDown={scrollDown}
             country={country}
             name = {name}
             age = {age}

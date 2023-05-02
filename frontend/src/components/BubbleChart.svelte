@@ -19,8 +19,6 @@
 
 
     onMount(() => {
-        console.log(g)
-
         let data2 = data.map((d,i) => [...Array(d.size).keys()].map(e => {
             return {
                 category: i,

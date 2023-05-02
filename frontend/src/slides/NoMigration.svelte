@@ -48,6 +48,11 @@ import Slide from '../components/Slide.svelte';
         14:'Other',
         15: 'Without worries'
     }
+    
+    let genderCode = {
+        'Woman': 1,
+        'Man': 2
+    }
 
     let econ_condition = 1
 
@@ -164,7 +169,7 @@ import Slide from '../components/Slide.svelte';
     allowNext = True
 >
     <div class='flex-center'>
-        
+<!--         
         <div class='text-container'>
             You've chosen not to migrate.
             
@@ -178,7 +183,7 @@ import Slide from '../components/Slide.svelte';
                     {label: 'B', size: 51},
                 ]}
             />
-        </div>
+        </div> -->
         <div class='text-container'>
             Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}</span>.
             You have <span class='data'>{saving_months}</span> months worth of savings to support your family.
