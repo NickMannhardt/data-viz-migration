@@ -1,0 +1,11 @@
+name: Create .nojeykyll File
+run-name: ${{ github.actor }} 
+on: 
+  push:
+    branches:
+      - gh-pages
+jobs:
+  Create-No-Jekyll:
+    runs-on: ubuntu-latest
+    steps:
+      - run: touch .nojekyll
