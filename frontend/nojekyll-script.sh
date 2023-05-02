@@ -5,8 +5,7 @@ ORIGINAL_BRANCH=$(git branch | grep '\* ' | sed 's/\* //');
 # git config user.email niklas.manhardt@gmail.com
 
 # switch to gh-pages branch
-git stash
-git checkout gh-pages
+git checkout gh-pages;
 
 # create and push .nojekyll
 # touch .nojeykyll
@@ -16,4 +15,3 @@ git checkout gh-pages
 
 # # switch to original branch
 # git checkout $ORIGINAL_BRANCH
-# git stash pop
