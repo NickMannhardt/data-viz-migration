@@ -25,3 +25,10 @@ to start the development server for the frontend run
 cd frontend
 npm run dev --open
 ```
+
+## To update the live website
+```
+cd frontend
+npm run gh-pages
+```
+then switch to the branch `gh-pages` and add a file named `.nojekyll`. If you skip this then the page won't render the css correctly.
