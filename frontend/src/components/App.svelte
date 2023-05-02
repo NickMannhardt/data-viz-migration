@@ -14,6 +14,7 @@
     import MigrateExternal4 from '../slides/MigrateExternal4.svelte'
     import ScatterTest from '../slides/ScatterTest.svelte';
     import Filters from '../components/Filters.svelte';
+    import Bar from '../components/Bar.svelte';
 
     // Current page being viewed
     var page_index = 0
@@ -30,7 +31,6 @@
         })
 
         function scrollPageDown() {
-            // console.log(`index: ${page_index}`)
             if (transition_conditions[page_index + 1]) {
                 page_index += 1
 
@@ -40,10 +40,10 @@
                     behavior: 'smooth',
                 });
             }
+            console.log(`index: ${page_index}`)
         }
         
         function scrollPageUp() {
-            // console.log(`index: ${page_index}`)
             if (page_index > 0) {
                 page_index -= 1
             }
@@ -56,6 +56,7 @@
             setTimeout(() => {
                 animation_active = false;
             }, 1000);
+            console.log(`index: ${page_index}`)
         }
 
         document.addEventListener('keyup', e => {
@@ -145,10 +146,6 @@
         />
     {/if}
     <Title/>
-    <!-- <ScatterTest
-        scrollUp={scrollUp}
-        scrollDown={scrollDown}
-    /> -->
     {#if page_index >= 1 || animation_active}
         <Profile
             scrollUp={scrollUp}
@@ -265,7 +262,7 @@
             scrollDown={scrollDown}
             country={country}
         />
-    {/if} -->
+    {/if}-->
     <Slide></Slide>  <!-- This buffer slide should remain hidden -->
 </main>
 

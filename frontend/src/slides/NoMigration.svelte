@@ -1,6 +1,7 @@
 <script>
     import BubbleChart from '../components/BubbleChart.svelte';
 import Slide from '../components/Slide.svelte';
+    import Bar from '../components/Bar.svelte';
     
 
     import { onMount } from 'svelte';
@@ -17,7 +18,7 @@ import Slide from '../components/Slide.svelte';
     let preocupaciones_first = 10;
     let preocupaciones_second = 10;
 
-    let image_dir = 'src/images/Hug.jpg'
+    let image_dir = '/images/Hug.jpg'
 
     let countryCode = {
         'El Salvador': 'SLV',
@@ -174,7 +175,8 @@ import Slide from '../components/Slide.svelte';
             You've chosen not to migrate.
             
         </div>
-        <div class='text-container'>
+    -->
+        <!-- <div class='text-container'>
             <BubbleChart
                 cssHeight=60
                 cssWidth=80
@@ -184,6 +186,16 @@ import Slide from '../components/Slide.svelte';
                 ]}
             />
         </div> -->
+        <Bar
+            cssHeight=40
+            cssWidth=80
+            data={[
+                {index: 1, size: 10},
+                {index: 1, size: 10},
+                {index: 1, size: 10},
+                {index: 1, size: 10},
+            ]}
+        />
         <div class='text-container'>
             Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}</span>.
             You have <span class='data'>{saving_months}</span> months worth of savings to support your family.

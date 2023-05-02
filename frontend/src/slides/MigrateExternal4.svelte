@@ -1,6 +1,6 @@
 <script>
     import Slide from '../components/Slide.svelte';
-    import Bar from '../components/BarOld.svelte';
+    import Bar from '../components/Bar.svelte';
 
     import { onMount } from 'svelte';
     import BubbleChart from '../components/BubbleChart.svelte';
@@ -52,27 +52,27 @@
     let data_remesa = [];
 
 
-    onMount( () => {
-        fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
-            .then(res => res.json())
-            .then(res => {
-                violence_group = res.highest_violence_group
-                perc_tot_violence = res.perc_violence
+    // onMount( () => {
+    //     fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             violence_group = res.highest_violence_group
+    //             perc_tot_violence = res.perc_violence
 
-            })
-    })
+    //         })
+    // })
 
-    onMount( () => {
-        fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
-            .then(res => res.json())
-            .then(res => {
-                perc_attempt1 = res.perc1
-                perc_attempt2 = res.perc2
-                perc_attempt3 = res.perc3
-                perc_attempt4plus = res.perc4plus
+    // onMount( () => {
+    //     fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             perc_attempt1 = res.perc1
+    //             perc_attempt2 = res.perc2
+    //             perc_attempt3 = res.perc3
+    //             perc_attempt4plus = res.perc4plus
 
-            })
-    })
+    //         })
+    // })
 
     onMount( () => {
         fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
@@ -98,7 +98,6 @@
 
 <Slide
     scrollUp={scrollUp}
-    scrollDown={scrollDown}
     allowNext = True
 >
     <div class='flex-center'>
@@ -128,26 +127,28 @@
         <div class='text-container'>
             You chances of remittances based on your migration choices.
         </div>
+        {#if data_remesa.length > 0}
+            <Bar
+                cssHeight=40
+                cssWidth=50
+                data={data_remesa}
+                xTitle={xTitle}
+                yTitle={yTitle}
+            />
+        {/if}
 
         <div class='flex-row'>
             <div class='barchart'>
-                {#if data_remesa.length > 0}
-                    <Bar
-                        data={data_remesa}
-                        xTitle={xTitle}
-                        yTitle={yTitle}
-                    />
-                {/if}
             </div>
             <div class='barchart'>
-                <BubbleChart
+                <!-- <BubbleChart
             cssHeight=40
             cssWidth=40
             data={[
                 {label: 'A', size: 23},
                 {label: 'B', size: 51},
             ]}
-            />
+            /> -->
             </div>
             
     

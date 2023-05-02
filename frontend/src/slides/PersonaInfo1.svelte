@@ -65,7 +65,7 @@
 
     let rural = "rural";
 
-    let image_dir = 'src/images/long_and_arduous_journey.jpg'
+    let image_dir = '/images/long_and_arduous_journey.jpg'
 
     onMount( () => {
         fetch(`http://localhost:8080/avg_income_amount/${countryCode[country]}`)
@@ -116,7 +116,6 @@
     allowNext = True
 >
     <div class='flex-center'>
-        
         <div class='text-container'>
             Hello, <span class='data'>{name}</span>.
         
@@ -149,12 +148,13 @@
         <div class='barchart'>
             {#if data.length > 0}
                 <Bar 
-                    data={data}
+                    cssHeight=50
+                    cssWidth=80
+                    data={data.slice(0,7)}
                     xTitle={xTitle}
                     yTitle={yTitle}
                 />
             {/if}
-            
         </div>
         <div class='text-container'>Now you begin to plan your long and arduous journey.</div>
         

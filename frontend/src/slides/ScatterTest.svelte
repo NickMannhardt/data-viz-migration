@@ -1,4 +1,6 @@
 <script>
+    import { onMount } from "svelte";
+
     import Bar from "../components/Bar.svelte";
     import BubbleChart from "../components/BubbleChart.svelte";
     import Scatterplot from "../components/Scatterplot.svelte";
@@ -7,6 +9,36 @@
     export let scrollUp;
     export let scrollDown;
 
+    let country = 'El Salvador';
+    let age = 21;
+    let gender = 'Woman';
+    
+    let countryCode = {
+        'El Salvador': 'SLV',
+        'Honduras': 'HND',
+        'Guatemala': 'GT'
+    }
+
+    let genderCode = {
+        'Woman': 1,
+        'Man': 2
+    }
+
+    let data = []
+    
+    onMount( () => {
+        fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                data = res.map(d => {
+                    return {
+                        index: d['remesa_bracket'],
+                        size: d['remesa_pct']
+                    }
+                })
+            })
+    })
+
 </script>
 
 <Slide
@@ -14,11 +46,11 @@
     scrollDown={scrollDown}
 >   
     <div class='flex-center'>
-        <div>
+        <!-- <div>
             hello
-        </div>
+        </div> -->
         <div class='container'>
-            <BubbleChart
+            <!-- <BubbleChart
                 cssHeight=40
                 cssWidth=60
                 data={[
@@ -28,7 +60,7 @@
                     {label: 'B', size: 51},
                     // {label: 'C', size: 32},
                 ]}
-            />
+            /> -->
             <!-- <Scatterplot
                 cssHeight=40
                 cssWidth=60
@@ -40,18 +72,13 @@
                     {x: 12, y: 3},
                 ]}
             />  -->
-            <!-- <Bar
-                cssHeight=60
-                cssWidth=80
-                data={[
-                    {index: 0, size: 11},
-                    {index: 1, size: 14},
-                    {index: 2, size: 8},
-                    {index: 3, size: 18},
-                    {index: 4, size: 12},
-                    {index: 5, size: 11},
-                ]}
-            /> -->
+            {#if data.length > 0}
+                <Bar
+                    cssHeight=50
+                    cssWidth=90
+                    data={data.slice(0,7)}
+                />
+            {/if}
         </div>
     </div>
 </Slide>
