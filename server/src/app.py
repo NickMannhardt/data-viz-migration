@@ -302,6 +302,11 @@ def get_mig_ext_violence(rsp_sex):
                 .count()\
                 .rename({'mig_ext_sex': 'count'}, axis=1)\
                 .reset_index()
+    df['count'] = df['count'] / df['count'].sum() * 100
+    
+    df = df.sort_values('count', ascending=False)
+
+    return json.loads(df.to_json(orient='records', index=True))
     
     index = df['count'].idxmax()
     highest_violence = df['mig_ext_violence_who'][index ]
