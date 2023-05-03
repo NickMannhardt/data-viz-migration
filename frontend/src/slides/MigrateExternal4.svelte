@@ -45,34 +45,43 @@
         5:'police and / or armed forces',
         6:'groups dedicated to the extraction of natural resources',
         7:'unkown groups',
-        8:'unkown groups'
-
+        8:'unkown groups',
+        99: 'no violence',
     }
 
     let data_remesa = [];
+    let data_violence = [];
 
 
-    // onMount( () => {
-    //     fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             violence_group = res.highest_violence_group
-    //             perc_tot_violence = res.perc_violence
+    onMount( () => {
+        fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                data_violence = res.map(d => {
+                    console.log(violence_code[d['mig_ext_violence_who']])
+                    return {
+                        label: violence_code[d['mig_ext_violence_who']],
+                        value: d['count']
+                    }
+                })
+                console.log(data_violence)
+                violence_group = data_violence[0].label
+                perc_tot_violence = data_violence[0].value
 
-    //         })
-    // })
+            })
+    })
 
-    // onMount( () => {
-    //     fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             perc_attempt1 = res.perc1
-    //             perc_attempt2 = res.perc2
-    //             perc_attempt3 = res.perc3
-    //             perc_attempt4plus = res.perc4plus
+    onMount( () => {
+        fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                perc_attempt1 = res.perc1
+                perc_attempt2 = res.perc2
+                perc_attempt3 = res.perc3
+                perc_attempt4plus = res.perc4plus
 
-    //         })
-    // })
+            })
+    })
 
     onMount( () => {
         fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
@@ -113,7 +122,7 @@
             From your choices, you are <span class='data'>{perc_tot_violence}%</span> likely that you experience 
             some form of violence during your migration. 
             If you do experience violence, you are most likely to experience violence from 
-            <span class='data'>{violence_code[violence_group]}</span>.
+            <span class='data'>{violence_group}</span>.
         </div>
         <br>
         <div class='text-container'>
@@ -128,12 +137,18 @@
             You chances of remittances based on your migration choices.
         </div>
         {#if data_remesa.length > 0}
-            <Bar
+            <!-- <Bar
                 cssHeight=40
                 cssWidth=50
                 data={data_remesa}
                 xTitle={xTitle}
                 yTitle={yTitle}
+            /> -->
+            <BubbleChart
+                Title={"Violence experienced"}
+                cssHeight=40
+                cssWidth=50
+                data={data_violence.slice(0,6)}
             />
         {/if}
 

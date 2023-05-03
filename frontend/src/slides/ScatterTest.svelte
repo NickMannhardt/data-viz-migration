@@ -50,17 +50,6 @@
             hello
         </div> -->
         <div class='container'>
-            <!-- <BubbleChart
-                cssHeight=40
-                cssWidth=60
-                data={[
-                    // 0, 1, 2, 3
-                    // {a: 0},{a: 1},{a: 2},{a: 3}
-                    {label: 'A', size: 23},
-                    {label: 'B', size: 51},
-                    // {label: 'C', size: 32},
-                ]}
-            /> -->
             <!-- <Scatterplot
                 cssHeight=40
                 cssWidth=60
@@ -73,6 +62,24 @@
                 ]}
             />  -->
             {#if data.length > 0}
+                <BubbleChart
+                    Title="Demo Graphic"
+                    cssHeight=40
+                    cssWidth=60
+                    data={[
+                        // 0, 1, 2, 3
+                        // {a: 0},{a: 1},{a: 2},{a: 3}
+                        {label: 'A', value: 23},
+                        {label: 'B', value: 51},
+                        {label: 'C', value: 26},
+                        // {label: 'C', size: 32},
+                    ]}
+                />
+                <!-- <BubbleChart
+                    cssHeight=40
+                    cssWidth=60
+                    data={data.slice(0,6)}
+                /> -->
                 <Bar
                     cssHeight=50
                     cssWidth=90

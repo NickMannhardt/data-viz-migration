@@ -186,16 +186,6 @@ import Slide from '../components/Slide.svelte';
                 ]}
             />
         </div> -->
-        <Bar
-            cssHeight=40
-            cssWidth=80
-            data={[
-                {index: 1, size: 10},
-                {index: 1, size: 10},
-                {index: 1, size: 10},
-                {index: 1, size: 10},
-            ]}
-        />
         <div class='text-container'>
             Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}</span>.
             You have <span class='data'>{saving_months}</span> months worth of savings to support your family.

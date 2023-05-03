@@ -2,7 +2,9 @@
     import Slide from '../components/Slide.svelte';
 </script>
 
-<Slide>
+<Slide
+    shifted={false}
+>
     <div class='title-div'>
         <h1>Big <span class='red'>Data</span>. Big <span class='orange'>Choices</span>. Big <span class='teal'>Stories</span>.</h1>
         <h2><i>The choices of the individual told in aggregate, in a pick-your-own adventure format</i></h2>
