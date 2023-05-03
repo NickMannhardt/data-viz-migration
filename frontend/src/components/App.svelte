@@ -145,6 +145,7 @@
             show_acompany={page_index >=6}
         />
     {/if}
+    <!-- <ScatterTest/> -->
     <Title/>
     {#if page_index >= 1 || animation_active}
         <Profile

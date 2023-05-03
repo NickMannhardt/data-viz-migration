@@ -43,6 +43,7 @@
     scrollUp={scrollUp}
     scrollDown={scrollDown}
     allowNext={name.length > 0}
+    shifted={true}
 >
     <div class='flex-center'>
         <div class='flex-row'>

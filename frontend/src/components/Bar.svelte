@@ -101,7 +101,7 @@
         };
         mousePosition =
             positionInSVG.x > paddings.left &&
-            positionInSVG.x < chartWidth - paddings.right &&
+            positionInSVG.x < width - paddings.right &&
             positionInSVG.y > paddings.top &&
             positionInSVG.y < chartHeight - paddings.bottom
                 ? { x: positionInSVG.x, y: positionInSVG.y }
@@ -194,6 +194,8 @@
                 width={(width - paddings.left - paddings.right) / data.length - paddings.gap}
                 fill="#FFFFFF"
                 class={graphId}
+                onmouseover="this.style.fill='#31a693'"
+                onmouseout="this.style.fill='#ffffff'"
             />
         {/each}
     </g>
