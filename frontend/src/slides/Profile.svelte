@@ -23,17 +23,26 @@
     
     let image_dir = null;
 
-    function chooseAvatar(gender) {
+    function chooseAvatar(gender, age) {
         if (gender === "Woman") {
-            let i = Math.floor(Math.random() * female_avatars.length);
-            image_dir = female_avatars[i];
-        } else {
-            let i = Math.floor(Math.random() * male_avatars.length);
-            image_dir = male_avatars[i];
+            if (age > 30){
+                image_dir = 'images/avatar_2.png'
+            }
+            else{
+                image_dir = 'images/avatar_3.png'
+            }    
+        } 
+        else {
+            if (age > 30){
+                image_dir = 'images/avatar_4.png'
+            }
+            else{
+                image_dir ='images/avatar_1.png'
+            } 
         }
     }
 
-    chooseAvatar(gender);
+    chooseAvatar(gender, age);
 
 
 
@@ -60,7 +69,7 @@
                     <input 
                         bind:value={name}
                         class="name-input" 
-                        style="color:#a8181c;" 
+                        style="color:#E15759;" 
                         type="text"
                         placeholder="Name"
                     >
@@ -69,7 +78,7 @@
                     You are a 
                     <select 
                         class="profile-select" 
-                        style="color:#f66d0e;" 
+                        style="color:#F2832B;" 
                         bind:value={age}
                     >
                         {#each ages as ageOption}
@@ -90,7 +99,7 @@
                     in
                     <select 
                         class="profile-select" 
-                        style="color:#a8181c;"
+                        style="color:#E15759;"
                         bind:value={country}
                     >
                         <option>El Salvador</option>
@@ -108,7 +117,7 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 24pt;
     }
     .profile-select:hover{
@@ -122,7 +131,7 @@
         border: none;
         border-bottom: solid white;
         color: white;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 24pt;
         width: 15vh;
         text-align: center;
@@ -139,6 +148,7 @@
     }
     .input-container {
         font-size: 24pt;
+        font-family: 'Inconsolata';
     }
     .image-div {
         margin-right: 10vh;

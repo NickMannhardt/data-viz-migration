@@ -46,7 +46,7 @@
     .prev {
         border: none;
         background: none;
-        color: #a8181c;
+        color: #E15759;
         margin-left: 7vh;
         font-size: 18pt;
         font-family: "Delicious Handrawn";
@@ -54,7 +54,7 @@
 
     .next {
         background: none;
-        color: #a8181c;
+        color: #E15759;
         margin-right: 7vh;
         border: none;
         border-radius: 1vh;
