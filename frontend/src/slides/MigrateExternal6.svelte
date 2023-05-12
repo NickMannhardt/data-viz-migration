@@ -5,8 +5,27 @@
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
-    export let country;
-    export let migrationDecision;
+    export let coyote;
+
+    let coyote_dir = null;
+
+    let coyoteID = {
+        'yes':  7,
+        'no': [1,2,3,5,8]
+    }
+
+    function chooseCoyote(coyote) {
+        if (coyote === 'yes'){
+            coyote_dir = '/images/Coyote.jpg'
+        }
+        else 
+        {
+            coyote_dir ='/images/NoCoyote-02-01.jpg'
+        }
+
+    }
+    chooseCoyote(coyote)
+
 
     
 </script>
@@ -18,24 +37,49 @@
 >
     <div class='flex-center'>
         
-        <div class='text-container'>
-            Due to an overburdened bureaucracy and legal system, you are unable 
-            to obtain a visa or the necessary papers for legal migration.
-            You are left at an impasse. Stay at home, or migrate using irregular means.
+        <div class='text-container'> 
+            Some of your friends suggest you might need a guide. They point you 
+            in the direction of a coyote.
         </div>
         <br>
+        <div class='text-container'>
+            You’re a little bit unsure. A coyote, or coyotero, is slang for 
+            people smuggler. Smugglers illegally accept money to help migrants 
+            cross into the United States from Mexico, often by guiding the migrants
+            over the hills and through the desert or by forging papers and contracts
+            to bypass the slow bureaucratic process.
+        </div>
         <br>
         <div class='text-container'>
-            Do you migrate?
+            Traveling with a coyote could be the solution to your problems, but 
+            it also comes with a great deal of risk.
+        </div>
+           <br>
+        <div class='input-container'> 
+            Do you want to travel with a coyote?
+            <br>
             <select 
                 class="input-select" 
                 style="color:#E15759;"
-                bind:value={migrationDecision}
+                bind:value={coyote}
+                onchange = {chooseCoyote(coyote)}
             >
                 <option>yes</option>
                 <option>no</option>
             </select>
-        </div>            
+        </div>
+        <div class='flex-row'>
+        <div class='image-div'>
+            <img 
+                src={coyote_dir}
+                alt="oops"
+                height = "250"
+            >
+
+        </div>
+    </div>
+
+            
     </div>
 
     

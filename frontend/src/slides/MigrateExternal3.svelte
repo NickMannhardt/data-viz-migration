@@ -1,31 +1,33 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
-    import App from '../components/App.svelte';
 
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
-    export let avg_income;
     export let country;
-    export let debt_amount;
-    export let amountSpent;
+    export let finance = 'Bank loan'
 
-    let countryCode = {
-        'El Salvador': 'SLV',
-        'Honduras': 'HND',
-        'Guatemala': 'GT'
+    let destCountry = 'United States of America'
+
+    let migExtFinance = {
+        'Bank loan': 1,
+        'Mortgaged the house to the bank': 2,
+        'Loans with lender': 3,
+        'Cooperative loan': 4,
+        'Loan from a relative or friend abroad': 5,
+        'Gift from a relative or friend abroad': 6,
+        'Savings': 7,
+        'Family loan in the country': 8,
+        'With his work when arriving at the destination':9,
+        'Sold property or property':10,
+        'Other':11,
+        'I don\'t wish to respond':99
     }
 
-    let currency = {
-        'SLV': 'Dollars',
-        'HND': 'Lempiras', 
-        'GT': 'Quetzals'
-    }
+    let image_dir = '/images/money_willing_to_spend.jpg'
 
-    let amounts = Array.from({ length: 50 }, (_, i) => (i+1) * 1)
-    let image_dir = '/images/Envelope.jpg'
-    
+
     
 </script>
 
@@ -35,56 +37,43 @@
     allowNext = True
 >
     <div class='flex-center'>
-        
-        <div class='text-container' >
-            Your household earns <span class='data'>{avg_income} {currency[countryCode[country]]}</span>
-            per month, and is in <span class='data'>{debt_amount} {currency[countryCode[country]]}</span> debt.
-            You don't know how much you will have to spend migrating, but you do
-             know that it might take multiple attempts, if you are successful 
-             at all. If you make it, however, you will be able to support your 
-             family and pay off you debt with remittances.
-        </div>
-        <br>
         <div class='text-container'>
-            How much are you willing to spend on migrating? 
-        </div>
-        <br>
-        <div class='text-container'>
-            <select class="profile-select" style="color:#f66d0e;" bind:value={amountSpent}>
-                {#each amounts  as amountSpent}
-                    <option>{amountSpent}</option>
-                {/each}
+            It would be difficult to fund the journey yourself, so instead, you plan to finance your migration using
+            <br>
+            <br>
+            <select 
+                class="input-select" 
+                style="color:#E15759;"
+                bind:value={finance}
+            >
+                <option>Bank loan</option>
+                <option>Mortgaged the house to the bank</option>
+                <option>Loans with lender</option>
+                <option>Cooperative loan</option>
+                <option>Loan from a relative or friend abroad</option>
+                <option>Gift from a relative or friend abroad</option>
+                <option>Savings</option>
+                <option>Family loan in the country</option>
+                <option>With his work when arriving at the destination</option>
+                <option>Sold property or property</option>
+                <option>Other</option>
+                <option>I don't wish to respond</option>
             </select>
-            thousand <span class='data'>{currency[countryCode[country]]}</span>
         </div>
+        <br>
         <div class='image-div'>
             <img 
                 src={image_dir}
                 alt="oops"
-                width="500"
+                width="600"
             >
-        </div> 
+        </div>
     </div>
 
     
 </Slide>
 
 <style>
-    .profile-select {
-        background-color: #1f1f1f;
-        border: none;
-        color: white;
-        font-family: 'Permanent Marker';
-        font-size: 18pt;
-    }
-    .profile-select:hover{
-        cursor: pointer;
-    }
-
-    .barchart {
-        width: 90vh;
-    }
-
     .flex-center {
         display: flex;
         flex-direction: column;
@@ -109,7 +98,7 @@
         cursor: pointer;
     }
     .input-container {
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .profile-select {
         background-color: #1f1f1f;
@@ -123,6 +112,13 @@
         color: #31a693;
         font-family: 'Permanent Marker';
         font-size: 18pt;
+    }
+
+    .image-div {
+        margin-right: 0vh;
+        margin-left: 0vh;
+        margin-top: 0vh;
+        margin-bottom: 0vh;
     }
     
 </style>
