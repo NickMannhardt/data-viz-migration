@@ -1,6 +1,7 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
 
     import { onMount } from 'svelte';
     export let scrollUp;
@@ -65,10 +66,10 @@
 
     let rural = "rural";
 
-    let image_dir = '/images/long_and_arduous_journey.jpg'
+    let image_dir = 'images/long_and_arduous_journey.jpg'
 
     onMount( () => {
-        fetch(`http://localhost:8080/avg_income_amount/${countryCode[country]}`)
+        fetch(`${PUBLIC_API_URL}/avg_income_amount/${countryCode[country]}`)
             .then(res => res.json())
             .then(res => {
                 data = res.map(d => {
@@ -85,7 +86,7 @@
 
     
     onMount( () => {
-        fetch(`http://localhost:8080/mean_income_amount/${countryCode[country]}`)
+        fetch(`${PUBLIC_API_URL}/mean_income_amount/${countryCode[country]}`)
             .then(res => res.json())
             .then(res => {
                 avg_income = res.result
@@ -93,7 +94,7 @@
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/debt_amount/${countryCode[country]}`)
+        fetch(`${PUBLIC_API_URL}/debt_amount/${countryCode[country]}`)
             .then(res => res.json())
             .then(res => {
                 debt_amount = res.result
@@ -101,7 +102,7 @@
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/preocupaciones_first/${countryCode[country]}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/preocupaciones_first/${countryCode[country]}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 preocupaciones = res.result

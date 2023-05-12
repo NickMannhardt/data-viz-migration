@@ -39,7 +39,7 @@
             }
         })).flat()
 
-        let links = data.map((d,i) => [...Array(d.value).keys()].map(e => {
+        let links = data.map((d,i) => [...Array(Math.floor(d.value)).keys()].map(e => {
             return {source:`${i}-0`, target:`${i}-${e}`}
         })).flat()
 
@@ -60,16 +60,16 @@
         fig_size = Math.min(width, height)/12
 
         var simulation = d3.forceSimulation(data2)
-            .force("center", d3.forceCenter().strength(1.5).x(width/2).y(height/2))
-            .force("charge", d3.forceManyBody().strength(.1))
+            .force("center", d3.forceCenter().strength(1.0).x(width/2).y(height/2))
+            .force("charge", d3.forceManyBody().strength(.2))
             .force("collide", d3.forceCollide().strength(.5).radius(Math.min(width, height)/25).iterations(1))
-            .force("link", d3.forceLink().strength(0.3).id(d => d.id))
+            .force("link", d3.forceLink().strength(0.6).id(d => d.id))
             .force("bound", () => {data2.forEach(node => {
                 node.x = Math.min(width - fig_size, Math.max(0, node.x));
                 node.y = Math.min(height - fig_size, Math.max(node.y, paddings.top));
             })})
 
-        console.log(links)
+
 
         simulation
             .nodes(data2)
@@ -112,7 +112,6 @@
         for (let point of data2) {
             let dis = Math.sqrt((mousePosition.x - point.x) ** 2 + (mousePosition.y - point.y) ** 2)
             if (dis < (fig_size/2)) {
-                console.log(data[point.category])
                 currentHoveredPoint = data[point.category]
                 break;
             }
@@ -149,7 +148,7 @@
             class={mousePosition.x === null ? "tooltip-hidden" : "tooltip-visible"}
             style="left: {pageMousePosition.x + 10}px; top: {pageMousePosition.y + 10}px"
         >
-            About {currentHoveredPoint.value}% of migrants experience violence as a result of {currentHoveredPoint.label}
+            About {currentHoveredPoint.value.toFixed(2)}% of migrants experience violence as a result of {currentHoveredPoint.label}
         </div>
     {/if}
 </div>

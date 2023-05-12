@@ -103,7 +103,7 @@
             positionInSVG.x > paddings.left &&
             positionInSVG.x < width - paddings.right &&
             positionInSVG.y > paddings.top &&
-            positionInSVG.y < chartHeight - paddings.bottom
+            positionInSVG.y < height - paddings.bottom
                 ? { x: positionInSVG.x, y: positionInSVG.y }
                 : { x: null, y: null };
     }

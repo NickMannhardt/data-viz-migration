@@ -15,6 +15,9 @@
     import ScatterTest from '../slides/ScatterTest.svelte';
     import Filters from '../components/Filters.svelte';
     import Bar from '../components/Bar.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
+
+    console.log(`url: ${PUBLIC_API_URL}`)
 
     // Current page being viewed
     var page_index = 0

@@ -1,6 +1,6 @@
 <script>
     import Slide from '../components/Slide.svelte';
-    import Bar from '../components/Bar.svelte';
+    import Bar from '../components/BarOld.svelte';
 
 
     import { onMount } from 'svelte';

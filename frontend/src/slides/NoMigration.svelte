@@ -18,7 +18,7 @@ import Slide from '../components/Slide.svelte';
     let preocupaciones_first = 10;
     let preocupaciones_second = 10;
 
-    let image_dir = '/images/Hug.jpg'
+    let image_dir = 'images/Hug.jpg'
 
     let countryCode = {
         'El Salvador': 'SLV',

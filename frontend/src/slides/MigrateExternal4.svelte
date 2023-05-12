@@ -1,6 +1,7 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
 
     import { onMount } from 'svelte';
     import BubbleChart from '../components/BubbleChart.svelte';
@@ -50,29 +51,27 @@
     }
 
     let data_remesa = [];
-    let data_violence = [];
+    // let data_violence = [];
 
+    console.log(`gender: ${gender}`)
 
-    onMount( () => {
-        fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
-            .then(res => res.json())
-            .then(res => {
-                data_violence = res.map(d => {
-                    console.log(violence_code[d['mig_ext_violence_who']])
-                    return {
-                        label: violence_code[d['mig_ext_violence_who']],
-                        value: d['count']
-                    }
-                })
-                console.log(data_violence)
-                violence_group = data_violence[0].label
-                perc_tot_violence = data_violence[0].value
-
+    // use this notation so that we can automatically fetch new data when the gender changes
+    $: data_violence = fetch(`${PUBLIC_API_URL}/mig_ext_violence/${genderCode[gender]}`)
+        .then(res => res.json())
+        .then(res => {
+            let d_v = res.map(d => {
+                return {
+                    label: violence_code[d['mig_ext_violence_who']],
+                    value: d['count']
+                }
             })
-    })
+            violence_group = d_v[0].label
+            perc_tot_violence = d_v[0].value
+            return d_v
+        })
 
     onMount( () => {
-        fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/mig_ext_attempts/${age}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 perc_attempt1 = res.perc1
@@ -84,7 +83,7 @@
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 data_remesa = res.map(d => {
@@ -99,10 +98,6 @@
     let xTitle= "Remesa Bracket";
     let yTitle = "Percentage %";
 
-
-    
-
-    
 </script>
 
 <Slide
@@ -111,7 +106,7 @@
 >
     <div class='flex-center'>
         
-        <div class='text-container'>
+        <!-- <div class='text-container'>
             You have chosen to spend <span class='data'>{amountSpent} thousand {currency[countryCode[country]]}</span> 
             to migrate by <span class='data'>{acompany}</span>.
         </div>
@@ -135,43 +130,23 @@
         <br>
         <div class='text-container'>
             You chances of remittances based on your migration choices.
-        </div>
-        {#if data_remesa.length > 0}
-            <!-- <Bar
-                cssHeight=40
-                cssWidth=50
-                data={data_remesa}
-                xTitle={xTitle}
-                yTitle={yTitle}
-            /> -->
+        </div> -->
+        {#await data_violence}
+            <div
+                style='width: 50vh; height: 40vh;'
+            >
+                Waiting...
+            </div>
+        {:then data}
             <BubbleChart
                 Title={"Violence experienced"}
-                cssHeight=40
-                cssWidth=50
-                data={data_violence.slice(0,6)}
+                cssHeight=70
+                cssWidth=70
+                data={data.slice(0,6)}
             />
-        {/if}
-
-        <div class='flex-row'>
-            <div class='barchart'>
-            </div>
-            <div class='barchart'>
-                <!-- <BubbleChart
-            cssHeight=40
-            cssWidth=40
-            data={[
-                {label: 'A', size: 23},
-                {label: 'B', size: 51},
-            ]}
-            /> -->
-            </div>
-            
-    
-        </div>
-
-        
-        
-            
+        {:catch error}
+            <div style="color: red">{error.message}</div> 
+        {/await}
     </div>
 
     

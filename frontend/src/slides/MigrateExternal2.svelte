@@ -20,11 +20,11 @@
 
     function chooseAccompany(acompany) {
         if (acompany === 'with your family'){
-            acompany_dir  = '/images/family.jpg'
+            acompany_dir  = 'images/family.jpg'
         }
         else 
         {
-            acompany_dir  ='/images/Alone.jpg'
+            acompany_dir  ='images/Alone.jpg'
         }
 
     }
@@ -43,11 +43,11 @@
 
     function chooseCoyote(coyote) {
         if (coyote === 'yes'){
-            coyote_dir = '/images/Coyote.jpg'
+            coyote_dir = 'images/Coyote.jpg'
         }
         else 
         {
-            coyote_dir ='/images/NoCoyote-02-01.jpg'
+            coyote_dir ='images/NoCoyote-02-01.jpg'
         }
 
     }
