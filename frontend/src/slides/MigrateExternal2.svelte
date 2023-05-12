@@ -77,7 +77,7 @@
             travel with. You decide you want to travel
             <select 
                 class="input-select" 
-                style="color:#a8181c;"
+                style="color:#E15759;"
                 bind:value={acompany}
                 onchange={chooseAccompany(acompany)}
             >
@@ -101,7 +101,7 @@
             <br>
             <select 
                 class="input-select" 
-                style="color:#a8181c;"
+                style="color:#E15759;"
                 bind:value={coyote}
                 onchange = {chooseCoyote(coyote)}
             >
@@ -142,6 +142,7 @@
     }
 
     .text-container {
+        font-family: 'Inconsolata';
         font-size: 18pt;
         width: 80vh;
         animation:
@@ -151,7 +152,7 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
     .input-select{
@@ -159,18 +160,19 @@
     }
     .input-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
     }
     .profile-select {
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
 
     .data{
         color: #31a693;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
     .image-div {

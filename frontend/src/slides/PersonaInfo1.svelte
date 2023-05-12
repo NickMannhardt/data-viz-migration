@@ -24,9 +24,6 @@
     let preocupaciones = 10
 
 
-    let chartWidth = 600;
-    let chartHeight = 350;
-
     let selected_country = 'GLV';
 
     const paddings = {
@@ -35,10 +32,6 @@
         right: 50,
         bottom: 50,
     }
-
-
-
-    
 
     let preocupaciones_first = {
         1: 'Fear of contagion of COVID-19',
@@ -126,7 +119,7 @@
             You live in a
             <select 
                 class="input-select" 
-                style="color:#a8181c;"
+                style="color:#E15759;"
                 bind:value={rural}
             >
                 <option>rural</option>
@@ -134,7 +127,7 @@
             </select>
             area.
             You live in a 
-            <select class="profile-select" style="color:#f66d0e;">
+            <select class="profile-select" style="color:#F2832B;">
                 {#each n_household  as number}
                     <option>{number}</option>
                 {/each}
@@ -149,7 +142,7 @@
             {#if data.length > 0}
                 <Bar 
                     cssHeight=50
-                    cssWidth=80
+                    cssWidth=50
                     data={data.slice(0,7)}
                     xTitle={xTitle}
                     yTitle={yTitle}
@@ -172,8 +165,7 @@
 
 <style>
     .barchart {
-        width: 90vh;
-
+        
     }
 
     .flex-center {
@@ -184,6 +176,7 @@
 
     .text-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -192,7 +185,7 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
     .input-select{
@@ -205,13 +198,13 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
 
     .data{
         color: #31a693;
-        font-family: 'Delicious Handrawn';
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
     

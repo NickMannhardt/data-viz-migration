@@ -269,9 +269,14 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara&display=swap');
     main {
         font-family: 'Delicious Handrawn', 'Helvetica', 'Arial', sans-serif;
         color: #FFFFFF;
     }
+
+
 </style>
