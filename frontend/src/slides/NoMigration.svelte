@@ -104,6 +104,12 @@ import Slide from '../components/Slide.svelte';
 
     }
 
+    let currency_explain = {
+        'SLV': 'A single person estimated monthly costs are 607.0$ without rent.',
+        'HND': 'A single person estimated monthly costs are 519.5$ (12727.75 Lempiras) without rent.', 
+        'GT': 'A single person estimated monthly costs are 636.0$ (4948.08 Quetzals) without rent.'
+    }
+
     onMount( () => {
         fetch(`http://localhost:8080/mean_income_amount/${countryCode[country]}`)
             .then(res => res.json())
@@ -187,7 +193,7 @@ import Slide from '../components/Slide.svelte';
             />
         </div> -->
         <div class='text-container'>
-            Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}</span>.
+            Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}*</span>.
             You have <span class='data'>{saving_months}</span> months worth of savings to support your family.
             You have <span class='data'>{debt_months}</span> months worth of debt to pay off.
 
@@ -211,7 +217,9 @@ import Slide from '../components/Slide.svelte';
         </div>
         
 
-            
+        <div class='text-container-2'>
+            *{currency_explain[countryCode[country]]}
+        </div>        
     </div>
 
     
@@ -230,6 +238,13 @@ import Slide from '../components/Slide.svelte';
 
     .text-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
+        width: 80vh;
+        animation:
+            typing 3.5s steps(40, end),
+    }
+    .text-container-2 {
+        font-size: 12pt;
         font-family: 'Inconsolata';
         width: 80vh;
         animation:
