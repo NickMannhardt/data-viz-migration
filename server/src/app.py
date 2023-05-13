@@ -309,11 +309,6 @@ def get_mig_ext_violence(rsp_sex):
     df = df.sort_values('count', ascending=False)
 
     return json.loads(df.to_json(orient='records', index=True))
-    
-    index = df['count'].idxmax()
-    highest_violence = df['mig_ext_violence_who'][index ]
-
-    return jsonify({'highest_violence_group':str(highest_violence),'perc_violence': float(perc_violence) })
 
 
 @app.route('/mig_ext_attempts/<rsp_age>/<rsp_sex>', methods=['GET'])

@@ -14,11 +14,11 @@
     console.log(data);
 
     let height = 200;
-    let width = 1000;
+    let width = 500;
 
     const paddings = {
         top: 50,
-        left: 150,
+        left: 50,
         right: 50,
         bottom: 100,
         gap: 5,
@@ -208,7 +208,7 @@
     }
 
     .visualization {
-        font: 25px sans-serif;
+        font: 25px "Inconsolata";
         /* margin: auto; */
         /* margin-top: 1px; */
         /* text-align: middle; */
@@ -217,14 +217,14 @@
 
     .tooltip-hidden {
         visibility: hidden;
-        font-family: "Nunito", sans-serif;
+        font-family: "Inconsolata", sans-serif;
         width: 200px;
         position: absolute;
     }
 
     .tooltip-visible {
         font: 25px sans-serif;
-        font-family: "Nunito", sans-serif;
+        font-family: "Inconsolata", sans-serif;
         visibility: visible;
         background-color: #f0dba8;
         border-radius: 10px;

@@ -229,7 +229,8 @@ import Slide from '../components/Slide.svelte';
     }
 
     .text-container {
-        font-size: 24pt;
+        font-size: 18pt;
+        font-family: 'Inconsolata';
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -238,27 +239,27 @@ import Slide from '../components/Slide.svelte';
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
     .input-select{
         cursor: pointer;
     }
     .input-container {
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .profile-select {
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
 
     .data{
         color: #31a693;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
     
 </style>

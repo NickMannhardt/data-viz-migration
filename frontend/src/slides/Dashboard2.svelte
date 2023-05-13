@@ -7,7 +7,6 @@
     export let scrollUp;
     export let scrollDown;
     export let country;
-<<<<<<< HEAD
     export let acompany;
     export let gender;
     export let violence_group;
@@ -97,11 +96,6 @@
     let xTitle= "Remesa Bracket";
     let yTitle = "Percentage %";
 
-=======
-    export let migrationDecision;
-
-    
->>>>>>> 1b7b11ca3dda073e3d3efa4787f234eab9daddf6
 </script>
 
 <Slide
@@ -111,7 +105,6 @@
 >
     <div class='flex-center'>
         
-<<<<<<< HEAD
         <!-- <div class='text-container'>
             You have chosen to spend <span class='data'>{amountSpent} thousand {currency[countryCode[country]]}</span> 
             to migrate by <span class='data'>{acompany}</span>.
@@ -124,17 +117,10 @@
             some form of violence during your migration. 
             If you do experience violence, you are most likely to experience violence from 
             <span class='data'>{violence_group}</span>.
-=======
-        <div class='text-container'>
-            Due to an overburdened bureaucracy and legal system, you are unable 
-            to obtain a visa or the necessary papers for legal migration.
-            You are left at an impasse. Stay at home, or migrate using irregular means.
->>>>>>> 1b7b11ca3dda073e3d3efa4787f234eab9daddf6
         </div>
         <br>
         <br>
         <div class='text-container'>
-<<<<<<< HEAD
             You chances of remittances based on your migration choices.
         </div> -->
         {#await data_violence}
@@ -153,18 +139,6 @@
         {:catch error}
             <div style="color: red">{error.message}</div> 
         {/await}
-=======
-            Do you migrate?
-            <select 
-                class="input-select" 
-                style="color:#E15759;"
-                bind:value={migrationDecision}
-            >
-                <option>yes</option>
-                <option>no</option>
-            </select>
-        </div>            
->>>>>>> 1b7b11ca3dda073e3d3efa4787f234eab9daddf6
     </div>
 
     

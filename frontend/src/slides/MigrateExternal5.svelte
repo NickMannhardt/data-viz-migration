@@ -3,33 +3,26 @@
     import Bar from '../components/Bar.svelte';
 
     import { onMount } from 'svelte';
-  import App from '../components/App.svelte';
     export let scrollUp;
     export let scrollDown;
     export let country;
+    export let acompany;
+
+    let acompany_dir = null;
 
 
-    let finance = 'Bank loan'
+    function chooseAccompany(acompany) {
+        if (acompany === 'with your family'){
+            acompany_dir  = '/images/family.jpg'
+        }
+        else 
+        {
+            acompany_dir  ='/images/Alone.jpg'
+        }
 
-    let destCountry = 'United States of America'
-
-    let migExtFinance = {
-        'Bank loan': 1,
-        'Mortgaged the house to the bank': 2,
-        'Loans with lender': 3,
-        'Cooperative loan': 4,
-        'Loan from a relative or friend abroad': 5,
-        'Gift from a relative or friend abroad': 6,
-        'Savings': 7,
-        'Family loan in the country': 8,
-        'With his work when arriving at the destination':9,
-        'Sold property or property':10,
-        'Other':11,
-        'I don\'t wish to respond':99
     }
 
-    let image_dir = 'images/DoYouMigrate.jpg'
-
+    chooseAccompany(acompany)
 
     
 </script>
@@ -42,31 +35,41 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            Now that you’ve decided to migrate, it is time to plan your journey…
-            <br>
-            <br>
-            Due to an overburdened bureaucracy and legal system, you are unable 
-            to obtain a visa or the necessary papers for legal migration.
-            <br>
-            <br>
-            You are left at an impasse. Stay at home, or migrate using irregular means.
+            You know that the easiest route from <span class='data'>{country}</span> to the USA is through
+            the southern border from Mexico.
+        </div>
+        <br>
+        <div class='text-container'>
+            This is a long, arduous journey, and you debate who you want to 
+            travel with. You decide you want to travel
+            <select 
+                class="input-select" 
+                style="color:#E15759;"
+                bind:value={acompany}
+                onchange={chooseAccompany(acompany)}
+            >
+            <option>with your family</option>
+            <option> alone</option>
+            </select>   
+            .     
+        </div>
+        <div class='flex-row'>
         <div class='image-div'>
             <img 
-                src={image_dir}
+                src={acompany_dir}
                 alt="oops"
-                width="600"
+                height = "300"
             >
         </div>
-        
+    </div>
+
+            
     </div>
 
     
 </Slide>
 
 <style>
-    .barchart {
-        width: 90vh;
-    }
 
     .flex-center {
         display: flex;
@@ -75,8 +78,8 @@
     }
 
     .text-container {
-        font-size: 18pt;
         font-family: 'Inconsolata';
+        font-size: 18pt;
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -93,6 +96,7 @@
     }
     .input-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
     }
     .profile-select {
         background-color: #1f1f1f;
@@ -107,9 +111,13 @@
         font-family: 'Permanent Marker';
         font-size: 18pt;
     }
-
     .image-div {
         margin-right: 0vh;
     }
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+    
     
 </style>
