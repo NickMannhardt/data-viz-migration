@@ -39,7 +39,9 @@
         })
 
         function scrollPageDown() {
-            if (transition_conditions[page_index + 1]) {
+            let condition = transition_conditions[page_index + 1]
+            console.log(condition)
+            if ((typeof condition === 'object' && condition[migrationDecision]) || (typeof condition !== 'object' && condition)) {
                 page_index += 1
 
                 let target = window.innerHeight * page_index
@@ -48,7 +50,6 @@
                     behavior: 'smooth',
                 });
             }
-            console.log(`index: ${page_index}`)
         }
         
         function scrollPageUp() {
@@ -64,7 +65,6 @@
             setTimeout(() => {
                 animation_active = false;
             }, 1000);
-            console.log(`index: ${page_index}`)
         }
 
         document.addEventListener('keyup', e => {
@@ -132,12 +132,12 @@
         4: true,
         5: true,
         6: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        7: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        8: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        9: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        10: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        11: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        12: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
+        7: {internal: false, external: (migrationDecision == "yes")},
+        8: {internal: false, external: (migrationDecision == "yes")},
+        9: {internal: false, external: (migrationDecision == "yes")},
+        10: {internal: false, external: (migrationDecision == "yes")},
+        11: {internal: false, external: (migrationDecision == "yes")},
+        12: {internal: false, external: (migrationDecision == "yes")},
     }
 
     console.log(`decision: ${migrationDecision}`)
@@ -221,7 +221,6 @@
             age = {age}
             gender = {gender}
             bind:migrationDecision = {migrationDecision}
-            
         />
     {/if}
     {#if (page_index >= 6 || animation_active) && transition_conditions[6].external}

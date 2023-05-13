@@ -28,6 +28,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        outline: hidden;
     }
 
     .slide-content {

@@ -62,7 +62,6 @@
     allowNext = True
 >
     <div class='flex-center'>
-        
         <div class='text-container'>
             Do you migrate?
             <br>

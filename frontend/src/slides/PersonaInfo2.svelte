@@ -1,5 +1,6 @@
 <script>
     import Slide from '../components/Slide.svelte';
+    import Bar from '../components/Bar.svelte';
     import { PUBLIC_API_URL } from '$env/static/public';
 
     console.log(`url: ${PUBLIC_API_URL}`)
