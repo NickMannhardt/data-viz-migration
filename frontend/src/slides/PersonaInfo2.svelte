@@ -65,7 +65,7 @@
 
     let rural = "rural";
 
-    let image_dir = '/images/long_and_arduous_journey.jpg'
+    let image_dir = 'images/long_and_arduous_journey.jpg'
 
     onMount( () => {
         fetch(`${PUBLIC_API_URL}/avg_income_amount/${countryCode[country]}`)

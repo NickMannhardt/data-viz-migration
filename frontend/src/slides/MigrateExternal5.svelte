@@ -13,11 +13,11 @@
 
     function chooseAccompany(acompany) {
         if (acompany === 'with your family'){
-            acompany_dir  = '/images/family.jpg'
+            acompany_dir  = 'images/family.jpg'
         }
         else 
         {
-            acompany_dir  ='/images/Alone.jpg'
+            acompany_dir  ='images/Alone.jpg'
         }
 
     }

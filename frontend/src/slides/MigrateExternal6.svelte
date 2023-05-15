@@ -16,11 +16,11 @@
 
     function chooseCoyote(coyote) {
         if (coyote === 'yes'){
-            coyote_dir = '/images/Coyote.jpg'
+            coyote_dir = 'images/Coyote.jpg'
         }
         else 
         {
-            coyote_dir ='/images/NoCoyote-02-01.jpg'
+            coyote_dir ='images/NoCoyote-02-01.jpg'
         }
 
     }

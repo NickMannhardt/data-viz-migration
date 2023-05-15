@@ -13,7 +13,7 @@
     let data = [];
     let remesa_amount = "0"
 
-    let image_dir = '/images/DoYouMigrate.jpg'
+    let image_dir = 'images/DoYouMigrate.jpg'
 
 
     const paddings = {
