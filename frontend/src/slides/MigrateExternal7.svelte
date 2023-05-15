@@ -59,6 +59,12 @@
     let data_remesa = [];
     let data_violence = [];
 
+    let currency_explain = {
+        'SLV': 'A single person estimated monthly costs are 607.0$ without rent.',
+        'HND': 'A single person estimated monthly costs are 519.5$ (12727.75 Lempiras) without rent.', 
+        'GT': 'A single person estimated monthly costs are 636.0$ (4948.08 Quetzals) without rent.'
+    }
+
 
     onMount( () => {
         fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
@@ -118,7 +124,7 @@
     <div class='flex-center'>
         <div class='text-container'>
             Now you’ve decided to travel <span class='data'>{acompany}</span> and <span class='data'>{coyote_code[coyote]}</span> a coyote.
-            You have chosen to spend <span class='data'>{amountSpent} thousand {currency[countryCode[country]]}</span>.
+            You have chosen to spend <span class='data'>{amountSpent} thousand {currency[countryCode[country]]}</span>*.
         </div>
         <div class='text-container'>
             The likelihood that you will experience violence on your journey is quite high. 
@@ -170,7 +176,9 @@
         </div>
 
         
-        
+        <div class='text-container-2'>
+            *{currency_explain[countryCode[country]]}
+        </div>
             
     </div>
 
@@ -190,6 +198,13 @@
 
     .text-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
+        width: 80vh;
+        animation:
+            typing 3.5s steps(40, end),
+    }
+    .text-container-2 {
+        font-size: 12pt;
         font-family: 'Inconsolata';
         width: 80vh;
         animation:

@@ -57,6 +57,12 @@
         'Man': 2
     }
 
+    let currency_explain = {
+        'SLV': 'A single person estimated monthly costs are 607.0$ without rent.',
+        'HND': 'A single person estimated monthly costs are 519.5$ (12727.75 Lempiras) without rent.', 
+        'GT': 'A single person estimated monthly costs are 636.0$ (4948.08 Quetzals) without rent.'
+    }
+
     let rural = "rural";
 
     let image_dir = '/images/long_and_arduous_journey.jpg'
@@ -112,8 +118,11 @@
     <div class='flex-center'>
         <div class='text-container'>
             
-            Your family earns about <span class='data'>{avg_income} {currency[countryCode[country]]}</span>,
-            and you are <span class='data'>{debt_amount} {currency[countryCode[country]]}</span> in debt.
+        Your family earns about <span class='data'>{avg_income} {currency[countryCode[country]]}</span>*,
+        and you are <span class='data'>{debt_amount} {currency[countryCode[country]]}</span>* in debt.
+        <br>
+        <br>
+        At home, you are predominantly concerned with <span class='data'>{preocupaciones_first[preocupaciones]}</span>.
             
         <!-- <div class='barchart'>
             {#if data.length > 0}
@@ -128,7 +137,10 @@
         </div> -->
 
         
-        At home, you are predominantly concerned with <span class='data'>{preocupaciones_first[preocupaciones]}</span>.
+
+        <div class='text-container-2'>
+            *{currency_explain[countryCode[country]]}
+        </div>
         
         <!-- <div class='image-div'>
             <img 
@@ -155,6 +167,13 @@
 
     .text-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
+        width: 80vh;
+        animation:
+            typing 3.5s steps(40, end),
+    }
+    .text-container-2 {
+        font-size: 12pt;
         font-family: 'Inconsolata';
         width: 80vh;
         animation:

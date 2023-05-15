@@ -41,7 +41,11 @@
         'Man': 2
     }
 
-
+    let currency_explain = {
+        'SLV': 'A single person estimated monthly costs are 607.0$ without rent.',
+        'HND': 'A single person estimated monthly costs are 519.5$ (12727.75 Lempiras) without rent.', 
+        'GT': 'A single person estimated monthly costs are 636.0$ (4948.08 Quetzals) without rent.'
+    }
     
     onMount( () => {
         fetch(`http://localhost:8080/remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
@@ -70,13 +74,18 @@
             <br>
             <br>
             Some families in your area receive remittances from their relatives abroad, up to 
-            <span class='data'>{remesa_amount} {currency[countryCode[country]]} </span>!
+            <span class='data'>{remesa_amount} {currency[countryCode[country]]}</span>*!
             With that kind of money, you could begin paying off your family’s debt for good.
             <br>
             <br>
             You know that your family has some concerns about migrating. It is a
              dangerous journey, and some people never come back. Yet it is a decision
               that could change your destiny, and the wellbeing of your family, forever.
+            </div>
+            <br>
+            <br>
+            <div class='text-container-2'>
+                *{currency_explain[countryCode[country]]}
             </div>
         
     </div>
@@ -97,6 +106,13 @@
 
     .text-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
+        width: 80vh;
+        animation:
+            typing 3.5s steps(40, end),
+    }
+    .text-container-2 {
+        font-size: 12pt;
         font-family: 'Inconsolata';
         width: 80vh;
         animation:

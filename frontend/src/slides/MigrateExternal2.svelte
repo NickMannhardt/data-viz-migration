@@ -23,6 +23,12 @@
         'GT': 'Quetzals'
     }
 
+    let currency_explain = {
+        'SLV': 'A single person estimated monthly costs are 607.0$ without rent.',
+        'HND': 'A single person estimated monthly costs are 519.5$ (12727.75 Lempiras) without rent.', 
+        'GT': 'A single person estimated monthly costs are 636.0$ (4948.08 Quetzals) without rent.'
+    }
+
     let amounts = Array.from({ length: 50 }, (_, i) => (i+1) * 1)
     let image_dir = 'images/Envelope.jpg'
     
@@ -37,8 +43,8 @@
     <div class='flex-center'>
         
         <div class='text-container' >
-            Your household earns <span class='data'>{avg_income} {currency[countryCode[country]]}</span>
-            per month, and is in <span class='data'>{debt_amount} {currency[countryCode[country]]}</span> debt.
+            Your household earns <span class='data'>{avg_income} {currency[countryCode[country]]}</span>*
+            per month, and is in <span class='data'>{debt_amount} {currency[countryCode[country]]}</span>* debt.
             You don't know how much you will have to spend migrating, but you do
              know that it might take multiple attempts, if you are successful 
              at all. If you make it, however, you will be able to support your 
@@ -55,7 +61,7 @@
                     <option>{amountSpent}</option>
                 {/each}
             </select>
-            thousand <span class='data'>{currency[countryCode[country]]}</span>
+            thousand <span class='data'>{currency[countryCode[country]]}</span>*
         </div>
         <div class='image-div'>
             <img 
@@ -63,6 +69,9 @@
                 alt="oops"
                 width="500"
             >
+        </div>
+        <div class='text-container-2'>
+            *{currency_explain[countryCode[country]]}
         </div> 
     </div>
 
@@ -93,6 +102,13 @@
 
     .text-container {
         font-size: 18pt;
+        font-family: 'Inconsolata';
+        width: 80vh;
+        animation:
+            typing 3.5s steps(40, end),
+    }
+    .text-container-2 {
+        font-size: 12pt;
         font-family: 'Inconsolata';
         width: 80vh;
         animation:
