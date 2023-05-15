@@ -27,6 +27,7 @@
 
     // Current page being viewed
     var page_index = 0
+    var dashboard_index = 0
 
     var scrollUp;
     var scrollDown;
@@ -40,6 +41,12 @@
         })
 
         function scrollPageDown() {
+
+            if (page_index == 13 && dashboard_index < 5) {
+                dashboard_index++;
+                return;
+            }
+
             let condition = transition_conditions[page_index + 1]
 
             let condition_key = ((migrationDecision === "yes" && migrationDecision2 === "yes") ? "external" : "internal");
@@ -362,6 +369,7 @@
             amountSpent = {amountSpent}
             acompany = {acompany}
             coyote = {coyote}
+            bind:slide_index={dashboard_index}
         />
     {/if}
 
