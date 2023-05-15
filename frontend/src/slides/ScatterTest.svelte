@@ -27,7 +27,7 @@
     let data = []
     
     onMount( () => {
-        fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 data = res.map(d => {

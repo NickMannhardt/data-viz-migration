@@ -23,6 +23,11 @@
         >
             Refresh Page
         </button>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <i>This data visualization was made with data contributed by the United Nations World Food Programme (WFP).</i>
     </div>
 </Slide>
 

@@ -14,7 +14,7 @@
     export let violence_group;
     export let age;
 
-    let slide_index = 0;
+    export let slide_index = 0;
 
     let perc_attempt1 = 0.0
     let perc_attempt2 = 0.0

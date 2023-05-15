@@ -2,6 +2,7 @@
     import BubbleChart from '../components/BubbleChart.svelte';
 import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
     
 
     import { onMount } from 'svelte';
@@ -111,7 +112,7 @@ import Slide from '../components/Slide.svelte';
     }
 
     onMount( () => {
-        fetch(`http://localhost:8080/mean_income_amount/${countryCode[country]}`)
+        fetch(`${PUBLIC_API_URL}/mean_income_amount/${countryCode[country]}`)
             .then(res => res.json())
             .then(res => {
                 avg_income = res.result
@@ -119,7 +120,7 @@ import Slide from '../components/Slide.svelte';
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/saving_months/${countryCode[country]}`)
+        fetch(`${PUBLIC_API_URL}/saving_months/${countryCode[country]}`)
             .then(res => res.json())
             .then(res => {
                 saving_months = res.result
@@ -127,7 +128,7 @@ import Slide from '../components/Slide.svelte';
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/debt_months/${countryCode[country]}`)
+        fetch(`${PUBLIC_API_URL}/debt_months/${countryCode[country]}`)
             .then(res => res.json())
             .then(res => {
                 debt_months = res.result
@@ -135,7 +136,7 @@ import Slide from '../components/Slide.svelte';
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/preocupaciones_first/${countryCode[country]}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/preocupaciones_first/${countryCode[country]}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 preocupaciones_first = res.result
@@ -143,7 +144,7 @@ import Slide from '../components/Slide.svelte';
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/econ_condition/${countryCode[country]}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/econ_condition/${countryCode[country]}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 econ_condition = res.result
@@ -151,7 +152,7 @@ import Slide from '../components/Slide.svelte';
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/remesa_parentesco/${countryCode[country]}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/remesa_parentesco/${countryCode[country]}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 remesa_parentesco = res.result
@@ -159,7 +160,7 @@ import Slide from '../components/Slide.svelte';
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/remesa_remit_ocupacion/${countryCode[country]}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/remesa_remit_ocupacion/${countryCode[country]}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 remesa_remit_ocupacion = res.result

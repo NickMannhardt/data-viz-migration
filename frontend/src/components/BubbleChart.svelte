@@ -177,14 +177,14 @@
             {#if data2.length > 0 && legend}
                 {#each data as d, index}
                     <rect
-                        x={width-130}
+                        x={width-169}
                         y={20 * (index - data.length/2)+ height/2}
                         height={10}
                         width={10}
                         fill={colors[index]}
                     />
                     <text
-                        x={width-115}
+                        x={width-154}
                         y={20 * (index - data.length/2) + 10 + height/2}
                         fill='#FFFFFF'
                     >{d.label}</text>

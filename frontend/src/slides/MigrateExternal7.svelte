@@ -4,6 +4,7 @@
 
     import { onMount } from 'svelte';
     import BubbleChart from '../components/BubbleChart.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
     export let scrollUp;
     export let scrollDown;
     export let amountSpent;
@@ -67,7 +68,7 @@
 
 
     onMount( () => {
-        fetch(`http://localhost:8080/mig_ext_violence/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/mig_ext_violence/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 data_violence = res.map(d => {
@@ -83,7 +84,7 @@
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/mig_ext_attempts/${age}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/mig_ext_attempts/${age}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 perc_attempt1 = res.perc1
@@ -95,7 +96,7 @@
     })
 
     onMount( () => {
-        fetch(`http://localhost:8080/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/final_remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 data_remesa = res.map(d => {

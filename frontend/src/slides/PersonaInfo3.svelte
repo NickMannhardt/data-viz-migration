@@ -1,6 +1,7 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
 
     import { onMount } from 'svelte';
     export let scrollUp;
@@ -48,7 +49,7 @@
     }
     
     onMount( () => {
-        fetch(`http://localhost:8080/remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+        fetch(`${PUBLIC_API_URL}/remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
             .then(res => res.json())
             .then(res => {
                 remesa_amount = res.result
