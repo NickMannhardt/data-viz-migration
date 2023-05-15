@@ -11,6 +11,8 @@ CORS(
     resources={r"*": {"origins": [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        "http://nickmannhardt.github.io",
+        "https://nickmannhardt.github.io"
     ]}}
 )
 
@@ -282,9 +284,10 @@ def get_final_remesa_amount(country, rsp_age,rsp_sex):
 
 
 #External Migration Dataset
-@app.route('/mig_ext_violence/<rsp_sex>', methods=['GET'])
+@app.route('/mig_ext_violence_who/<rsp_sex>', methods=['GET'])
 def get_mig_ext_violence(rsp_sex):
     df = pd.read_csv(ext_data_dir)
+    # df = df.where(df['country'] == country)
     df = df[ (df['mig_ext_sex'] == int(rsp_sex))] #(df['rsp_age'] == 10) this is too narrow
     columns = [
                 'mig_ext_sex',
@@ -302,11 +305,36 @@ def get_mig_ext_violence(rsp_sex):
                 .count()\
                 .rename({'mig_ext_sex': 'count'}, axis=1)\
                 .reset_index()
+    df['count'] = df['count'] / df['count'].sum() * 100
     
-    index = df['count'].idxmax()
-    highest_violence = df['mig_ext_violence_who'][index ]
+    df = df.sort_values('count', ascending=False)
 
-    return jsonify({'highest_violence_group':str(highest_violence),'perc_violence': float(perc_violence) })
+    return json.loads(df.to_json(orient='records', index=True))
+
+@app.route('/mig_ext_violence/<country>/<rsp_sex>', methods=['GET'])
+def get_mig_ext_violence_country(country, rsp_sex):
+    df = pd.read_csv('data/mig_ext_roster.csv')
+    df = df.where(df['country'] == country)
+
+    columns = [
+        'mig_ext_sex',
+        *[x for x in df.columns if x.startswith('mig_ext_violence/')]
+    ]
+
+    df = df[columns]
+
+    df['count'] = 1
+
+    df = df.dropna()
+    df = df.groupby('mig_ext_sex').sum()
+    df = (df / sum(df['count']) * 100)
+    # .astype({col: 'int' for col in columns[1:]})
+    a = json.loads(df.to_json(index=True))
+    return [{
+        'label': key.split('/')[-1],
+        'value': sum([v for v in a[key].values()]),
+        'highlight': a[key][f'{int(rsp_sex)}.0']
+    } for key, value in a.items()]
 
 
 @app.route('/mig_ext_attempts/<rsp_age>/<rsp_sex>', methods=['GET'])
@@ -350,7 +378,31 @@ def get_mig_ext_attempts(rsp_age,rsp_sex,):
         perc.append(percentage)
     return jsonify({'perc1':round(perc[0],1),'perc2':round(perc[1],1),'perc3':round(perc[2],1),'perc4plus':round((perc[3]+perc[4]),1)})
 
+@app.route('/mig_ext_attempts_counts/<country>/<rsp_age>/<rsp_sex>', methods=['GET'])
+def get_mig_ext_attempts_counts(country, rsp_age, rsp_sex):
+    df = pd.read_csv(ext_data_dir)
+    df = df.where(df['country'] == country)
+    rsp_age = int(rsp_age)
+    df['age_bracket'] = pd.cut(df['mig_ext_age'], bins=range(0, 121, 10))
+    age_bracket = pd.Interval((rsp_age//10)*10, ((rsp_age//10)*10)+10)
+    filtered = df[(df['mig_ext_sex'] == int(rsp_sex)) & (df['age_bracket'] == age_bracket)]
 
+    columns = ['mig_ext_attempts', 'age_bracket']
+    df = df[columns]
+    filtered = filtered[columns]
+
+    total = list(df.groupby(['mig_ext_attempts']).count()['age_bracket'])
+    f = list(filtered.groupby(['mig_ext_attempts']).count()['age_bracket'])
+
+    out = []
+
+    for i in range(len(total)):
+        out.append({
+            'label': i+1,
+            'value': (total[i] / sum(total) * 100),
+            'highlight': (f[i] / sum(total) * 100) if i < len(f) else 0
+        })
+    return out
 
 
 if __name__ == '__main__':

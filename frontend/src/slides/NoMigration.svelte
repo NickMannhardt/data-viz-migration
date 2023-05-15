@@ -18,7 +18,7 @@ import Slide from '../components/Slide.svelte';
     let preocupaciones_first = 10;
     let preocupaciones_second = 10;
 
-    let image_dir = '/images/Hug.jpg'
+    let image_dir = 'images/Hug.jpg'
 
     let countryCode = {
         'El Salvador': 'SLV',
@@ -104,6 +104,12 @@ import Slide from '../components/Slide.svelte';
 
     }
 
+    let currency_explain = {
+        'SLV': 'A single person estimated monthly costs are 607.0$ without rent.',
+        'HND': 'A single person estimated monthly costs are 519.5$ (12727.75 Lempiras) without rent.', 
+        'GT': 'A single person estimated monthly costs are 636.0$ (4948.08 Quetzals) without rent.'
+    }
+
     onMount( () => {
         fetch(`http://localhost:8080/mean_income_amount/${countryCode[country]}`)
             .then(res => res.json())
@@ -186,18 +192,8 @@ import Slide from '../components/Slide.svelte';
                 ]}
             />
         </div> -->
-        <Bar
-            cssHeight=40
-            cssWidth=80
-            data={[
-                {index: 1, size: 10},
-                {index: 1, size: 10},
-                {index: 1, size: 10},
-                {index: 1, size: 10},
-            ]}
-        />
         <div class='text-container'>
-            Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}</span>.
+            Your average income is <span class='data'>{avg_income}{currency[countryCode[country]]}*</span>.
             You have <span class='data'>{saving_months}</span> months worth of savings to support your family.
             You have <span class='data'>{debt_months}</span> months worth of debt to pay off.
 
@@ -221,7 +217,9 @@ import Slide from '../components/Slide.svelte';
         </div>
         
 
-            
+        <div class='text-container-2'>
+            *{currency_explain[countryCode[country]]}
+        </div>        
     </div>
 
     
@@ -239,7 +237,15 @@ import Slide from '../components/Slide.svelte';
     }
 
     .text-container {
-        font-size: 24pt;
+        font-size: 18pt;
+        font-family: 'Inconsolata';
+        width: 80vh;
+        animation:
+            typing 3.5s steps(40, end),
+    }
+    .text-container-2 {
+        font-size: 12pt;
+        font-family: 'Inconsolata';
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -248,27 +254,27 @@ import Slide from '../components/Slide.svelte';
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
     .input-select{
         cursor: pointer;
     }
     .input-container {
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .profile-select {
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
 
     .data{
         color: #31a693;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
     
 </style>

@@ -2,6 +2,7 @@
     export let scrollUp = null;
     export let scrollDown = null;
     export let allowNext = null;
+    export let shifted = true;
 </script>
 
 <div class="slide">
@@ -10,8 +11,8 @@
             <button class="prev" on:click={scrollUp}>&#60 Back</button>
         </div>
     {/if}
-    <div class="slide-content">
-        <slot />
+    <div class= {shifted ? "slide-content shifted" : "slide-content"}>
+        <slot/>
     </div>
     {#if scrollDown}
         <div class="next-container">
@@ -27,6 +28,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        outline: hidden;
     }
 
     .slide-content {
@@ -38,22 +40,26 @@
         justify-content: center;
     }
 
+    .shifted {
+        margin-left: 20vh;
+    }
+
     .prev {
         border: none;
         background: none;
-        color: #a8181c;
+        color: #E15759;
         margin-left: 7vh;
         font-size: 18pt;
-        font-family: "Delicious Handrawn";
+        font-family: "Permanent Marker";
     }
 
     .next {
         background: none;
-        color: #a8181c;
+        color: #E15759;
         margin-right: 7vh;
         border: none;
         border-radius: 1vh;
-        font-family: "Delicious Handrawn";
+        font-family: "Permanent Marker";
         font-size: 36pt;
         text-decoration: underline;
     }

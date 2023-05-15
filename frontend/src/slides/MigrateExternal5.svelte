@@ -1,13 +1,28 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
-    import { PUBLIC_API_URL } from '$env/static/public';
 
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
     export let country;
-    export let migrationDecision;
+    export let acompany;
+
+    let acompany_dir = null;
+
+
+    function chooseAccompany(acompany) {
+        if (acompany === 'with your family'){
+            acompany_dir  = 'images/family.jpg'
+        }
+        else 
+        {
+            acompany_dir  ='images/Alone.jpg'
+        }
+
+    }
+
+    chooseAccompany(acompany)
 
     
 </script>
@@ -20,23 +35,35 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            Due to an overburdened bureaucracy and legal system, you are unable 
-            to obtain a visa or the necessary papers for legal migration.
-            You are left at an impasse. Stay at home, or migrate using irregular means.
+            You know that the easiest route from <span class='data'>{country}</span> to the USA is through
+            the southern border from Mexico.
         </div>
         <br>
-        <br>
         <div class='text-container'>
-            Do you migrate?
+            This is a long, arduous journey, and you debate who you want to 
+            travel with. You decide you want to travel
             <select 
                 class="input-select" 
                 style="color:#E15759;"
-                bind:value={migrationDecision}
+                bind:value={acompany}
+                onchange={chooseAccompany(acompany)}
             >
-                <option>yes</option>
-                <option>no</option>
-            </select>
-        </div>            
+            <option>with your family</option>
+            <option> alone</option>
+            </select>   
+            .     
+        </div>
+        <div class='flex-row'>
+        <div class='image-div'>
+            <img 
+                src={acompany_dir}
+                alt="oops"
+                height = "300"
+            >
+        </div>
+    </div>
+
+            
     </div>
 
     

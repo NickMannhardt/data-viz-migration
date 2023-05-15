@@ -32,3 +32,13 @@ cd frontend
 npm run gh-pages
 ```
 then switch to the branch `gh-pages` and add a file named `.nojekyll`. If you skip this then the page won't render the css correctly.
+
+
+## To update the live API
+Only Niklas can do this since it's tied to his google account.
+
+```
+cd server
+gcloud builds submit --tag gcr.io/data-viz-adventure-team/flask-server 
+gcloud run deploy --image gcr.io/data-viz-adventure-team/flask-server
+```

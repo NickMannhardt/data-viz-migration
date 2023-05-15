@@ -7,6 +7,7 @@
     export let loaded = true;
     export let mousemove;
     export let mouseleave;
+    export let id;
 
     // export let onmount;
     export let chartWidth = 0;
@@ -40,6 +41,7 @@
             height={chartHeight}
             on:mousemove={mousemove}
             on:mouseleave={mouseleave}
+            id={id}
         >
             <slot />
         </svg>

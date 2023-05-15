@@ -3,6 +3,7 @@
     import Bar from '../components/Bar.svelte';
 
     import { onMount } from 'svelte';
+  import App from '../components/App.svelte';
     export let scrollUp;
     export let scrollDown;
     export let country;
@@ -27,7 +28,7 @@
         'I don\'t wish to respond':99
     }
 
-    let image_dir = '/images/money_willing_to_spend.jpg'
+    let image_dir = 'images/DoYouMigrate.jpg'
 
 
     
@@ -41,41 +42,14 @@
     <div class='flex-center'>
         
         <div class='text-container'>
-            You've chosen to migrate! Now you'll need to make some preparations.
-            It is a long road from <span class='data'>{country}</span> to the USA.
-
-            You are planning to finance your migration using. Even as you prepare, one of 
-            the most consequential questions of your journey is weighing on you:
-            how you will travel, and with whom.
-        </div>
-        <br>
-        <div class='text-container'>
-            You are planning to finance your migration using 
-            means of financing
-            <select 
-                class="input-select" 
-                style="color:#a8181c;"
-                bind:value={finance}
-            >
-                <option>Bank loan</option>
-                <option>Mortgaged the house to the bank</option>
-                <option>Loans with lender</option>
-                <option>Cooperative loan</option>
-                <option>Loan from a relative or friend abroad</option>
-                <option>Gift from a relative or friend abroad</option>
-                <option>Savings</option>
-                <option>Family loan in the country</option>
-                <option>With his work when arriving at the destination</option>
-                <option>Sold property or property</option>
-                <option>Other</option>
-                <option>I don't wish to respond</option>
-            </select>
-        </div>
-        <br>
-        <div class='text-container'>
-            Even as you prepare, one of the most consequential questions of your
-             journey is weighing on you: how you will travel, and with whom.
-        </div>
+            Now that you’ve decided to migrate, it is time to plan your journey…
+            <br>
+            <br>
+            Due to an overburdened bureaucracy and legal system, you are unable 
+            to obtain a visa or the necessary papers for legal migration.
+            <br>
+            <br>
+            You are left at an impasse. Stay at home, or migrate using irregular means.
         <div class='image-div'>
             <img 
                 src={image_dir}
@@ -101,7 +75,8 @@
     }
 
     .text-container {
-        font-size: 24pt;
+        font-size: 18pt;
+        font-family: 'Inconsolata';
         width: 80vh;
         animation:
             typing 3.5s steps(40, end),
@@ -110,27 +85,27 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
     .input-select{
         cursor: pointer;
     }
     .input-container {
-        font-size: 24pt;
+        font-size: 18pt;
     }
     .profile-select {
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
 
     .data{
         color: #31a693;
-        font-family: 'Delicious Handrawn';
-        font-size: 24pt;
+        font-family: 'Permanent Marker';
+        font-size: 18pt;
     }
 
     .image-div {

@@ -3,18 +3,27 @@
 
     import Slide from '../components/Slide.svelte'
     import Title from '../slides/Title.svelte'
+    import Retry from '../slides/Retry.svelte'
     import Profile from '../slides/Profile.svelte'
     import Dashboard1 from '../slides/Dashboard1.svelte'
     import PersonaInfo1 from '../slides/PersonaInfo1.svelte'
     import PersonaInfo2 from '../slides/PersonaInfo2.svelte'
-    import MigrateExternal1 from '../slides/MigrateExternal1.svelte'
+    import PersonaInfo3 from '../slides/PersonaInfo3.svelte'
+    import PersonaInfo4 from '../slides/PersonaInfo4.svelte'
     import NoMigration from '../slides/NoMigration.svelte'
+    import MigrateExternal1 from '../slides/MigrateExternal1.svelte'
     import MigrateExternal2 from '../slides/MigrateExternal2.svelte'
     import MigrateExternal3 from '../slides/MigrateExternal3.svelte'
     import MigrateExternal4 from '../slides/MigrateExternal4.svelte'
+    import MigrateExternal5 from '../slides/MigrateExternal5.svelte'
+    import MigrateExternal6 from '../slides/MigrateExternal6.svelte'
+    import MigrateExternal7 from '../slides/MigrateExternal7.svelte'
     import ScatterTest from '../slides/ScatterTest.svelte';
     import Filters from '../components/Filters.svelte';
     import Bar from '../components/Bar.svelte';
+    import { PUBLIC_API_URL } from '$env/static/public';
+
+    console.log(`url: ${PUBLIC_API_URL}`)
 
     // Current page being viewed
     var page_index = 0
@@ -31,7 +40,11 @@
         })
 
         function scrollPageDown() {
-            if (transition_conditions[page_index + 1]) {
+            let condition = transition_conditions[page_index + 1]
+
+            let condition_key = ((migrationDecision === "yes" && migrationDecision2 === "yes") ? "external" : "internal");
+
+            if ((typeof condition === 'object' && condition[condition_key]) || (typeof condition !== 'object' && condition)) {
                 page_index += 1
 
                 let target = window.innerHeight * page_index
@@ -40,7 +53,6 @@
                     behavior: 'smooth',
                 });
             }
-            console.log(`index: ${page_index}`)
         }
         
         function scrollPageUp() {
@@ -56,7 +68,6 @@
             setTimeout(() => {
                 animation_active = false;
             }, 1000);
-            console.log(`index: ${page_index}`)
         }
 
         document.addEventListener('keyup', e => {
@@ -90,16 +101,21 @@
 
     // user choices
     $: name = "";
+    let profile_image = "";
     let gender = "Woman";
     let age = 10;
     let country = "El Salvador";
-    let rural = "rural"
-    let migrationDecision = "yes"
-    let avg_income = 500
-    let debt_amount = 10
-    let amountSpent = 10
-    let acompany = 'with your family'
-    let mig_ext_violence = 0
+    let rural = "rural";
+    let migrationDecision = "yes";
+    let migrationDecision2 = "yes";
+    let avg_income = 500;
+    let debt_amount = 10;
+    let amountSpent = 10;
+    let acompany = 'with your family';
+    let mig_ext_violence = 0;
+    $: amountwilling = "";
+    let finance = 'Bank loan';
+    let coyote = "yes" 
 
     let currency = {
         'SLV': 'Dollars',
@@ -118,22 +134,26 @@
         1: true,
         2: name.length > 0,
         3: true,
-        4: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        5: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
+        4: true,
+        5: true,
         6: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")},
-        7: {internal: (migrationDecision == "no") , external: (migrationDecision == "yes")}
+        7: {internal: (migrationDecision == "no"), external: (migrationDecision == "yes")},
+        8: {internal: false, external: (migrationDecision == "yes")},
+        9: {internal: false, external: (migrationDecision == "yes")},
+        10: {internal: (migrationDecision2 == "no"), external: (migrationDecision2 == "yes")},
+        11: {internal: (migrationDecision2 == "no"), external: (migrationDecision2 == "yes")},
+        12: {internal: false, external: (migrationDecision2 == "yes")},
+        13: {internal: false, external: true},
+        14: {internal: false, external: true}
     }
-
-    console.log(`decision: ${migrationDecision}`)
-
-
-
 </script>
 
 <main>
     {#if page_index >= 2}
         <Filters
-            disabled={!(page_index >= 4 && transition_conditions[4].internal) && !(page_index >= 7 && transition_conditions[7].external)}
+            disabled={!(page_index >= 13)}
+            profile_image={profile_image}
+            name={name}
             bind:gender={gender}
             bind:country={country}
             bind:age={age}
@@ -145,11 +165,14 @@
             show_acompany={page_index >=6}
         />
     {/if}
+    <!-- <ScatterTest/> -->
     <Title/>
+
     {#if page_index >= 1 || animation_active}
         <Profile
             scrollUp={scrollUp}
             scrollDown={scrollDown}
+            bind:image_dir={profile_image}
             bind:name={name}
             bind:gender={gender}
             bind:country={country}
@@ -165,10 +188,6 @@
             age = {age}
             gender = {gender}
             bind:rural={rural}
-            bind:avg_income = {avg_income}
-            bind:debt_amount = {debt_amount}
-            bind:currency = {currency}
-            bind:countryCode = {countryCode}
             
         />
     {/if}
@@ -180,11 +199,38 @@
             name = {name}
             age = {age}
             gender = {gender}
+            bind:rural={rural}
+            bind:avg_income = {avg_income}
+            bind:debt_amount = {debt_amount}
+            bind:currency = {currency}
+            bind:countryCode = {countryCode}
+        />
+    {/if}
+    {#if (page_index >= 4 || animation_active) && transition_conditions[4]}
+        <PersonaInfo3
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
             bind:migrationDecision = {migrationDecision}
             
         />
     {/if}
-    {#if (page_index >= 4 || animation_active) && transition_conditions[4].external}
+    {#if (page_index >= 5 || animation_active) && transition_conditions[5]}
+        <PersonaInfo4
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+            bind:migrationDecision = {migrationDecision}
+        />
+    {/if}
+
+    {#if (page_index >= 6 || animation_active) && transition_conditions[6].external}
         <MigrateExternal1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
@@ -194,9 +240,11 @@
             gender = {gender}
         />
     {/if}
-    {#if (page_index >= 4 || animation_active) && transition_conditions[4].internal}
+
+    {#if (page_index >= 6 || animation_active) && transition_conditions[6].internal}
         <NoMigration
             scrollUp={scrollUp}
+            scrollDown={scrollDown}
             country={country}
             name = {name}
             age = {age}
@@ -206,25 +254,9 @@
             countryCode = {countryCode}
         /> 
     {/if}
-    {#if (page_index >= 5 || animation_active) && transition_conditions[5].external}
+
+    {#if (page_index >= 7 || animation_active) && transition_conditions[7].external}
         <MigrateExternal2
-            scrollUp={scrollUp}
-            scrollDown={scrollDown}
-            country={country}
-            bind:acompany ={acompany}
-        />
-    {/if}
-
-
-    {#if (page_index >= 5 || animation_active) && transition_conditions[5].internal}
-        <Dashboard1
-            scrollUp={scrollUp}
-            scrollDown={scrollDown}
-            country={country}
-        />
-    {/if}
-    {#if (page_index >= 6 || animation_active) && transition_conditions[6].external}
-        <MigrateExternal3
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
@@ -235,15 +267,74 @@
             bind:amountSpent={amountSpent}
         />
     {/if}
-    {#if (page_index >= 6 || animation_active) && transition_conditions[6].internal}
-        <Dashboard1
+
+    {#if (page_index >= 7 || animation_active) && transition_conditions[7].internal}
+        <Retry
+            scrollUp={scrollUp}
+        />
+    {/if}
+
+    {#if (page_index >= 8 || animation_active) && transition_conditions[8].external}
+        <MigrateExternal3
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+            bind:finance = {finance}
         />
     {/if}
-    {#if (page_index >= 7 || animation_active) && transition_conditions[7].external}
+
+    {#if (page_index >= 9 || animation_active) && transition_conditions[9].external}
         <MigrateExternal4
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            bind:migrationDecision={migrationDecision2}
+        />
+    {/if}
+
+    {#if (page_index >= 10 || animation_active) && transition_conditions[10].external}
+        <MigrateExternal5
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            bind:acompany ={acompany}
+        />
+    {/if}
+
+    {#if (page_index >= 10 || animation_active) && transition_conditions[10].internal}
+        <NoMigration
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            name = {name}
+            age = {age}
+            gender = {gender}
+            avg_income = {avg_income}
+            currency = {currency}
+            countryCode = {countryCode}
+        /> 
+    {/if}
+    
+    {#if (page_index >= 11 || animation_active) && transition_conditions[11].external}
+        <MigrateExternal6
+            scrollUp={scrollUp}
+            scrollDown={scrollDown}
+            country={country}
+            bind:coyote ={coyote}
+        />
+    {/if}
+
+    {#if (page_index >= 11 || animation_active) && transition_conditions[11].internal}
+        <Retry
+            scrollUp={scrollUp}
+        />
+    {/if}
+
+    {#if (page_index >= 12 || animation_active) && transition_conditions[12].external}
+        <MigrateExternal7
             scrollUp={scrollUp}
             scrollDown={scrollDown}
             country={country} 
@@ -254,23 +345,45 @@
             countryCode = {countryCode}
             amountSpent = {amountSpent}
             acompany = {acompany}
+            coyote = {coyote}
         />
     {/if}
-    <!-- {#if (page_index >= 7 || animation_active) && transition_conditions[7].internal}
+
+    {#if (page_index >= 13 || animation_active) && transition_conditions[13].external}
         <Dashboard1
             scrollUp={scrollUp}
             scrollDown={scrollDown}
-            country={country}
+            country={country} 
+            name = {name}
+            age = {age}
+            gender = {gender}
+            currency = {currency}
+            countryCode = {countryCode}
+            amountSpent = {amountSpent}
+            acompany = {acompany}
+            coyote = {coyote}
         />
-    {/if}-->
+    {/if}
+
+    {#if (page_index >= 14 || animation_active) && transition_conditions[14].external}
+        <Retry
+            scrollUp={scrollUp}
+        />
+    {/if}
+
     <Slide></Slide>  <!-- This buffer slide should remain hidden -->
 </main>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara&display=swap');
     main {
-        font-family: 'Delicious Handrawn', 'Helvetica', 'Arial', sans-serif;
+        font-family: 'Inconsolata', 'Helvetica', 'Arial', sans-serif;
         color: #FFFFFF;
     }
+
+
 </style>

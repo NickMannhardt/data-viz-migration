@@ -1,18 +1,21 @@
 <script>
     import Slide from '../components/Slide.svelte';
     import Bar from '../components/Bar.svelte';
-    import { PUBLIC_API_URL } from '$env/static/public';
 
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
     export let country;
-    export let name;
     export let gender;
     export let age;
+    export let migrationDecision;
+    
 
+    let data = [];
+    let remesa_amount = "0"
 
-    let n_household = [1,2,3,4,5,6,7,8,9,10]
+    let image_dir = 'images/long_and_arduous_journey.jpg'
+
 
     const paddings = {
         top: 50, 
@@ -21,10 +24,36 @@
         bottom: 50,
     }
 
-    let rural = "rural";
+    let countryCode = {
+        'El Salvador': 'SLV',
+        'Honduras': 'HND',
+        'Guatemala': 'GT'
+    }
 
-    let image_dir = 'images/long_and_arduous_journey.jpg'
+    let currency = {
+        'SLV': 'Dollars',
+        'HND': 'Lempiras', 
+        'GT': 'Quetzals'
+    }
 
+
+    let genderCode = {
+        'Woman': 1,
+        'Man': 2
+    }
+
+
+    
+    onMount( () => {
+        fetch(`http://localhost:8080/remesa_amount/${countryCode[country]}/${age}/${genderCode[gender]}`)
+            .then(res => res.json())
+            .then(res => {
+                remesa_amount = res.result
+            })
+    })
+
+    
+    
 </script>
 
 <Slide
@@ -34,48 +63,37 @@
 >
     <div class='flex-center'>
         <div class='text-container'>
-            Hello, <span class='data'>{name}</span>.
+            Do you migrate?
             <br>
             <br>
-            Over the course of the following slides, you will be faced with the 
-            same series of decisions made by Central Americans who are seeking 
-            to improve their quality of life by migrating to the United States of America. 
             <br>
-            <br>
-            As you make your choices, we hope that you reflect on what it might 
-            mean to have to leave your roots, your family, and your country in
-             search of a better future. Let’s begin.
-             <br>
-             <br>
-
-            <div class='input-container'>
-            You are a <span class='data'>{age}</span> year old 
-            <span class='data'>{gender}</span> from <span class='data'>{country}</span>.
-            <br>
-            <br>
-            You live in a
             <select 
                 class="input-select" 
                 style="color:#E15759;"
-                bind:value={rural}
+                bind:value={migrationDecision}
             >
-                <option>rural</option>
-                <option>urban</option>
+                <option>yes</option>
+                <option>no</option>
             </select>
-            area.
-            You live in a 
-            <select class="profile-select" style="color:#F2832B;">
-                {#each n_household  as number}
-                    <option>{number}</option>
-                {/each}
-            </select>
-            person household.
+
+        </div>
+        <div class='image-div'>
+            <img 
+                src={image_dir}
+                alt="oops"
+                width="500"
+            >
+        </div>
+        
     </div>
 
     
 </Slide>
 
 <style>
+    .barchart {
+        width: 90vh;
+    }
 
     .flex-center {
         display: flex;
@@ -94,7 +112,7 @@
         background-color: #1f1f1f;
         border: none;
         color: white;
-        font-family: 'Permanent Marker'; 
+        font-family: 'Permanent Marker';
         font-size: 18pt;
     }
     .input-select{
@@ -115,6 +133,9 @@
         color: #31a693;
         font-family: 'Permanent Marker';
         font-size: 18pt;
+    }
+    .image-div {
+        margin-right: 0vh;
     }
     
 </style>

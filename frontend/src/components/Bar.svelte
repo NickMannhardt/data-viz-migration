@@ -10,15 +10,12 @@
     export let xTitle = "";
     export let yTitle = "";
 
-    console.log('data');
-    console.log(data);
-
     let height = 200;
-    let width = 1000;
+    let width = 500;
 
     const paddings = {
         top: 50,
-        left: 150,
+        left: 50,
         right: 50,
         bottom: 100,
         gap: 5,
@@ -101,9 +98,9 @@
         };
         mousePosition =
             positionInSVG.x > paddings.left &&
-            positionInSVG.x < chartWidth - paddings.right &&
+            positionInSVG.x < width - paddings.right &&
             positionInSVG.y > paddings.top &&
-            positionInSVG.y < chartHeight - paddings.bottom
+            positionInSVG.y < height - paddings.bottom
                 ? { x: positionInSVG.x, y: positionInSVG.y }
                 : { x: null, y: null };
     }
@@ -194,6 +191,8 @@
                 width={(width - paddings.left - paddings.right) / data.length - paddings.gap}
                 fill="#FFFFFF"
                 class={graphId}
+                onmouseover="this.style.fill='#31a693'"
+                onmouseout="this.style.fill='#ffffff'"
             />
         {/each}
     </g>
@@ -206,7 +205,7 @@
     }
 
     .visualization {
-        font: 25px sans-serif;
+        font: 25px "Inconsolata";
         /* margin: auto; */
         /* margin-top: 1px; */
         /* text-align: middle; */
@@ -215,14 +214,14 @@
 
     .tooltip-hidden {
         visibility: hidden;
-        font-family: "Nunito", sans-serif;
+        font-family: "Inconsolata", sans-serif;
         width: 200px;
         position: absolute;
     }
 
     .tooltip-visible {
         font: 25px sans-serif;
-        font-family: "Nunito", sans-serif;
+        font-family: "Inconsolata", sans-serif;
         visibility: visible;
         background-color: #f0dba8;
         border-radius: 10px;
