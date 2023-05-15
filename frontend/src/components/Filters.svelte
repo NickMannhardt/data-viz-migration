@@ -1,4 +1,8 @@
 <script>
+
+    export let profile_image;
+
+    export let name;
     export let gender;
     export let age;
     export let country;
@@ -21,10 +25,18 @@
 </script>
 
 <div class="filterContainer">
-    <div>Profile and Choices</div>
+    <img
+        class='bust_image'
+        src={profile_image}
+        alt="oops"
+        width=150
+        height=150
+    >
+    <div class="redAccent">{name}</div>
     <hr/>
     <div class="optionsContainer">
         <select
+            class='select-box'
             bind:value={gender}
             disabled={disabled}
         >
@@ -32,6 +44,7 @@
             <option>Woman</option>
         </select>
         <select
+            class='select-box'
             bind:value={age}
             disabled={disabled}
         >
@@ -40,6 +53,7 @@
             {/each}
         </select>
         <select
+            class='select-box'
             bind:value={country}
             disabled={disabled}
         >
@@ -47,8 +61,9 @@
             <option>Guatemala</option>
             <option>Honduras</option>
         </select>
-        {#if show_rural}
+        <!-- {#if show_rural}
             <select
+                class='select-box'
                 bind:value={rural}
                 disabled={disabled}
             >
@@ -58,6 +73,7 @@
         {/if}
         {#if show_migration}
             <select
+                class='select-box'
                 bind:value={migrationDecision}
                 disabled={true}
             >
@@ -67,6 +83,7 @@
         {/if}
         {#if show_acompany}
             <select
+                class='select-box'
                 bind:value={acompany}
                 disabled={disabled}
             >
@@ -80,7 +97,7 @@
                 <option>with another relative</option>
                 <option>with an unfamiliar person</option>
             </select>
-        {/if}
+        {/if} -->
     </div>
 </div>
 
@@ -89,13 +106,21 @@
         position: fixed;
         margin-left: 5vh;
         margin-top: 30vh;
-        outline: 1px solid white;
+        /* outline: 1px solid white; */
+        border-right: 1px solid white;
         padding: 2vh;
-        border-radius: 2vh;
+        /* border-radius: 2vh; */
         /* visibility: hidden; */
         opacity: 0.8;
 
         animation: appear 1s linear;
+    }
+
+    .select-box {
+        background: #1f1f1f;
+        color: white;
+        border: none;
+        font-family: 'Inconsolata'
     }
 
     @keyframes appear {
@@ -111,5 +136,15 @@
     .optionsContainer{
         display: flex;
         flex-direction: column;
+    }
+    
+    .bust_image {
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .redAccent {
+        font-family: "Permanent Marker";
+        color: #E15759;
     }
 </style>

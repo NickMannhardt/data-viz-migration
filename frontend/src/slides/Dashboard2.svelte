@@ -51,8 +51,6 @@
     let data_remesa = [];
     // let data_violence = [];
 
-    console.log(`gender: ${gender}`)
-
     // use this notation so that we can automatically fetch new data when the gender changes
     $: data_violence = fetch(`${PUBLIC_API_URL}/mig_ext_violence/${genderCode[gender]}`)
         .then(res => res.json())

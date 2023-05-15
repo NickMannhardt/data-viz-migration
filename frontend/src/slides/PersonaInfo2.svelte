@@ -3,8 +3,6 @@
     import Bar from '../components/Bar.svelte';
     import { PUBLIC_API_URL } from '$env/static/public';
 
-    console.log(`url: ${PUBLIC_API_URL}`)
-
     import { onMount } from 'svelte';
     export let scrollUp;
     export let scrollDown;
@@ -117,7 +115,7 @@
             Your family earns about <span class='data'>{avg_income} {currency[countryCode[country]]}</span>,
             and you are <span class='data'>{debt_amount} {currency[countryCode[country]]}</span> in debt.
             
-        <div class='barchart'>
+        <!-- <div class='barchart'>
             {#if data.length > 0}
                 <Bar 
                     cssHeight=50
@@ -127,7 +125,7 @@
                     yTitle={yTitle}
                 />
             {/if}
-        </div>
+        </div> -->
 
         
         At home, you are predominantly concerned with <span class='data'>{preocupaciones_first[preocupaciones]}</span>.

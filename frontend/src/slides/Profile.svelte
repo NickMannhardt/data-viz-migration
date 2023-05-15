@@ -21,7 +21,7 @@
         'images/avatar_4.png'
     ]
     
-    let image_dir = null;
+    export let image_dir = null;
 
     function chooseAvatar(gender, age) {
         if (gender === "Woman") {

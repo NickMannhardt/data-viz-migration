@@ -10,9 +10,6 @@
     export let xTitle = "";
     export let yTitle = "";
 
-    console.log('data');
-    console.log(data);
-
     let height = 200;
     let width = 500;
 

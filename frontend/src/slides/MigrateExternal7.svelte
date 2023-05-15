@@ -65,13 +65,11 @@
             .then(res => res.json())
             .then(res => {
                 data_violence = res.map(d => {
-                    console.log(violence_code[d['mig_ext_violence_who']])
                     return {
                         label: violence_code[d['mig_ext_violence_who']],
                         value: d['count']
                     }
                 })
-                console.log(data_violence)
                 violence_group = data_violence[0].label
                 perc_tot_violence = Math.round(data_violence[0].value)
 
@@ -114,6 +112,7 @@
 
 <Slide
     scrollUp={scrollUp}
+    scrollDown={scrollDown}
     allowNext = True
 >
     <div class='flex-center'>
@@ -145,12 +144,12 @@
                 xTitle={xTitle}
                 yTitle={yTitle}
             /> -->
-            <BubbleChart
+            <!-- <BubbleChart
                 Title={"Violence experienced"}
                 cssHeight=40
                 cssWidth=50
                 data={data_violence.slice(0,6)}
-            />
+            /> -->
         {/if}
 
         <div class='flex-row'>

@@ -50,7 +50,7 @@
         color: #E15759;
         margin-left: 7vh;
         font-size: 18pt;
-        font-family: "Delicious Handrawn";
+        font-family: "Permanent Marker";
     }
 
     .next {
@@ -59,7 +59,7 @@
         margin-right: 7vh;
         border: none;
         border-radius: 1vh;
-        font-family: "Delicious Handrawn";
+        font-family: "Permanent Marker";
         font-size: 36pt;
         text-decoration: underline;
     }
