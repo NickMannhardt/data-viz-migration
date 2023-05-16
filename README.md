@@ -1,6 +1,7 @@
 # Interactive Data Visualiation & Society - Final Project
-Zoe DeSimone, Natasha Hirt, Niklas Mannhardt
+Zoe De Simone, Natasha Hirt, Niklas Mannhardt
 
+Check out out live site [here]( https://nickmannhardt.github.io/data-viz-migration/).
 
 ## Getting Started
 After pulling from main, run
